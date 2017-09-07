@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <title>egg</title>
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <form id="inputForm">
+            <div class="section">
+                <label for="code">Code:</label>
+                <textarea name="code"></textarea>
+            </div>
+            <div class="section">
+                <label for="input">Input:</label>
+                <textarea name="input"></textarea>
+            </div>
+
+            <button type="submit">Run</button>
+        </form>
+
+        <div class="section output">
+            <label for="output">Output:</label>
+            <textarea readonly name="output"></textarea>
+        </div>
+
+        <script src="bundle.js"></script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+    font-family: 'Roboto Mono', monospace;
+}
+
+#inputForm button[type="submit"] {
+    margin-bottom: 2em;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.25em;
+    font-weight: bold;
+    height: 2em;
+    background: #3498db;
+    border: 0;
+}
+
+.section {
+    margin-bottom: 2em;
+}
+
+.section > label {
+    font-weight: bold;
+    font-size: 1.25em;
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.section > textarea {
+    width: 100%;
+    display: block;
+    resize: none;
+    min-height: 10em;
+}
+
+.output > textarea {
+    background: #ccc;
+    outline: none;
+}
+
