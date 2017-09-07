@@ -6,25 +6,50 @@ var codeField = document.getElementById('code')
 var inputField = document.getElementById('input')
 var outputField = document.getElementById('output')
 
-function execute(code, input) {
-    var stack = []
-    var tokens = parser.parse(code)
-
-    for (var i = 0; i < tokens.length; ++i) {
-        executeToken(stack, tokens[i])
-    }
+function Context(code, input) {
+	this.stack = []
+	this.code = code
+	this.input = input
+	this.output = ''
 }
 
-function executeToken(stack, token) {
+Context.prototype.execute = function() {
+	const tokens = parser.parse(this.code)
+
+	tokens.forEach(token => this.executeToken(token))
+	this.stack.forEach(elem => this.displayToken(elem))
+
+	return this.output
+}
+
+Context.prototype.executeToken = function(token) {
     if (token.type === 'operator') {
         var op = operators[token.value]
 
         if (typeof op === 'undefined') {
             throw new Error('unsupported operator: ' + token.value)
         }
+
+        op(this)
     } else {
-        stack.push(token)
+        this.stack.push(token)
     }
+}
+
+Context.prototype.displayToken = function(token) {
+	switch (token.type) {
+		case 'string':
+			this.output += token.value
+			break
+
+		case 'bigint':
+			this.output += token.value
+			break
+
+		case 'float':
+			this.output += token.value.toString()
+			break
+	}
 }
 
 inputForm.addEventListener('submit', ev => {
@@ -34,8 +59,11 @@ inputForm.addEventListener('submit', ev => {
     var input = inputField.value
     
     try {
+		var context = new Context(code, input)
+		var output = context.execute()
+
         outputField.style.color = '#000'
-        outputField.value = execute(code, input)
+        outputField.value = output
     } catch(e) {
         outputField.style.color = '#c0392b'
         outputField.value = e.toString()
