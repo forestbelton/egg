@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,41 +70,93 @@
 "use strict";
 
 
-var _Context = __webpack_require__(11);
-
-var _Context2 = _interopRequireDefault(_Context);
-
-__webpack_require__(17);
-
-__webpack_require__(16);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var inputForm = document.getElementById('inputForm');
-var codeField = document.getElementById('code');
-var inputField = document.getElementById('input');
-var outputField = document.getElementById('output');
-
-inputForm.addEventListener('submit', function (ev) {
-    ev.preventDefault();
-
-    var code = codeField.value;
-    var input = inputField.value;
-
-    try {
-        var context = new _Context2.default(code, input);
-        var output = context.execute();
-
-        outputField.style.color = '#000';
-        outputField.value = output;
-    } catch (e) {
-        outputField.style.color = '#c0392b';
-        outputField.value = e.stack.toString();
-    }
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Operator = function () {
+    function Operator(options) {
+        _classCallCheck(this, Operator);
+
+        this.name = options.name;
+        this.clauses = options.clauses;
+    }
+
+    _createClass(Operator, [{
+        key: 'matchingClause',
+        value: function matchingClause(stack) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.clauses[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var clause = _step.value;
+
+                    var argCount = clause.sig.length;
+                    if (stack.length < argCount) {
+                        continue;
+                    }
+
+                    var args = stack.slice(-argCount);
+                    var match = true;
+
+                    for (var i = 0; i < clause.sig.length; ++i) {
+                        if (args[i].type !== clause.sig[i] && clause.sig[i] !== 'any') {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        return clause;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return undefined;
+        }
+    }]);
+
+    return Operator;
+}();
+
+exports.default = Operator;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.term = term;
+function term(type, value) {
+    return { type: type, value: value };
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -933,7 +985,7 @@ function peg$parse(input, options) {
   }
 
 
-      var bigInt = __webpack_require__(12)
+      var bigInt = __webpack_require__(6)
 
 
   peg$result = peg$startRuleFunction();
@@ -962,7 +1014,7 @@ module.exports = {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -972,31 +1024,31 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _display = __webpack_require__(6);
+var _display = __webpack_require__(8);
 
 var _display2 = _interopRequireDefault(_display);
 
-var _divide = __webpack_require__(10);
+var _divide = __webpack_require__(9);
 
 var _divide2 = _interopRequireDefault(_divide);
 
-var _multiply = __webpack_require__(8);
+var _multiply = __webpack_require__(10);
 
 var _multiply2 = _interopRequireDefault(_multiply);
 
-var _plus = __webpack_require__(3);
+var _plus = __webpack_require__(11);
 
 var _plus2 = _interopRequireDefault(_plus);
 
-var _read = __webpack_require__(14);
+var _read = __webpack_require__(12);
 
 var _read2 = _interopRequireDefault(_read);
 
-var _subtract = __webpack_require__(9);
+var _subtract = __webpack_require__(13);
 
 var _subtract2 = _interopRequireDefault(_subtract);
 
-var _abs = __webpack_require__(5);
+var _abs = __webpack_require__(14);
 
 var _abs2 = _interopRequireDefault(_abs);
 
@@ -1014,55 +1066,44 @@ exports.default = {
 };
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _util = __webpack_require__(4);
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: '+',
-    clauses: [{
-        sig: ['float', 'float'],
-        desc: 'Floating-point addition.',
-        body: function body(context, left, right) {
-            context.push((0, _util.term)('float', left.value + right.value));
-        }
-    }, {
-        sig: ['bigint', 'bigint'],
-        desc: 'Integer addition.',
-        body: function body(context, left, right) {
-            context.push((0, _util.term)('bigint', left.value.add(right.value)));
-        }
-    }]
-});
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
+var _Context = __webpack_require__(5);
+
+var _Context2 = _interopRequireDefault(_Context);
+
+__webpack_require__(15);
+
+__webpack_require__(16);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var inputForm = document.getElementById('inputForm');
+var codeField = document.getElementById('code');
+var inputField = document.getElementById('input');
+var outputField = document.getElementById('output');
+
+inputForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+
+    var code = codeField.value;
+    var input = inputField.value;
+
+    try {
+        var context = new _Context2.default(code, input);
+        var output = context.execute();
+
+        outputField.style.color = '#000';
+        outputField.value = output;
+    } catch (e) {
+        outputField.style.color = '#c0392b';
+        outputField.value = e.stack.toString();
+    }
 });
-exports.term = term;
-function term(type, value) {
-    return { type: type, value: value };
-}
 
 /***/ }),
 /* 5 */
@@ -1075,174 +1116,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _util = __webpack_require__(4);
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'ma',
-    clauses: [{
-        sig: ['float'],
-        desc: 'Floating-point absolute value.',
-        body: function body(context, left) {
-            context.stack.push((0, _util.term)('float', Math.abs(left.value)));
-        }
-    }, {
-        sig: ['bigint'],
-        desc: 'Integer absolute value.',
-        body: function body(context, left) {
-            context.push((0, _util.term)('bigint', left.value.abs()));
-        }
-    }]
-});
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'd',
-    clauses: [{
-        sig: ['any'],
-        desc: 'Prints a token to the output.',
-        body: function body(context, token) {
-            context.displayToken(token);
-        }
-    }]
-});
-
-/***/ }),
-/* 7 */,
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _util = __webpack_require__(4);
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: '*',
-    clauses: [{
-        sig: ['float', 'float'],
-        desc: 'Floating-point multiplication.',
-        body: function body(context, left, right) {
-            context.stack.push((0, _util.term)('float', left.value * right.value));
-        }
-    }]
-});
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _util = __webpack_require__(4);
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: '-',
-    clauses: [{
-        sig: ['float', 'float'],
-        desc: 'Floating-point subtraction.',
-        body: function body(context, left, right) {
-            context.push((0, _util.term)('float', left.value - right.value));
-        }
-    }, {
-        sig: ['bigint', 'bigint'],
-        desc: 'Integer subtraction.',
-        body: function body(context, left, right) {
-            context.push((0, _util.term)('bigint', left.value.subtract(right.value)));
-        }
-    }]
-});
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _util = __webpack_require__(4);
-
-var _Operator = __webpack_require__(15);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: '/',
-    clauses: [{
-        sig: ['float', 'float'],
-        desc: 'Floating-point division.',
-        body: function body(context, left, right) {
-            context.stack.push((0, _util.term)('float', left.value / right.value));
-        }
-    }]
-});
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _grammar = __webpack_require__(1);
+var _grammar = __webpack_require__(2);
 
 var _grammar2 = _interopRequireDefault(_grammar);
 
-var _operators = __webpack_require__(2);
+var _operators = __webpack_require__(3);
 
 var _operators2 = _interopRequireDefault(_operators);
 
@@ -1328,7 +1208,7 @@ var Context = function () {
 exports.default = Context;
 
 /***/ }),
-/* 12 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var bigInt = (function (undefined) {
@@ -2586,10 +2466,10 @@ if ( true ) {
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
-/* 13 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -2617,7 +2497,131 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 14 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'd',
+    clauses: [{
+        sig: ['any'],
+        desc: 'Prints a token to the output.',
+        body: function body(context, token) {
+            context.displayToken(token);
+        }
+    }]
+});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: '/',
+    clauses: [{
+        sig: ['float', 'float'],
+        desc: 'Floating-point division.',
+        body: function body(context, left, right) {
+            context.stack.push((0, _util.term)('float', left.value / right.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: '*',
+    clauses: [{
+        sig: ['float', 'float'],
+        desc: 'Floating-point multiplication.',
+        body: function body(context, left, right) {
+            context.stack.push((0, _util.term)('float', left.value * right.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: '+',
+    clauses: [{
+        sig: ['float', 'float'],
+        desc: 'Floating-point addition.',
+        body: function body(context, left, right) {
+            context.push((0, _util.term)('float', left.value + right.value));
+        }
+    }, {
+        sig: ['bigint', 'bigint'],
+        desc: 'Integer addition.',
+        body: function body(context, left, right) {
+            context.push((0, _util.term)('bigint', left.value.add(right.value)));
+        }
+    }]
+});
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2629,13 +2633,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _util = __webpack_require__(4);
+var _util = __webpack_require__(1);
 
-var _Operator = __webpack_require__(15);
+var _Operator = __webpack_require__(0);
 
 var _Operator2 = _interopRequireDefault(_Operator);
 
-var _grammar = __webpack_require__(1);
+var _grammar = __webpack_require__(2);
 
 var _grammar2 = _interopRequireDefault(_grammar);
 
@@ -2658,7 +2662,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2668,71 +2672,94 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _util = __webpack_require__(1);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Operator = __webpack_require__(0);
 
-var Operator = function () {
-    function Operator(options) {
-        _classCallCheck(this, Operator);
+var _Operator2 = _interopRequireDefault(_Operator);
 
-        this.name = options.name;
-        this.clauses = options.clauses;
-    }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    _createClass(Operator, [{
-        key: 'matchingClause',
-        value: function matchingClause(stack) {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.clauses[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var clause = _step.value;
-
-                    var argCount = clause.sig.length;
-                    if (stack.length < argCount) {
-                        continue;
-                    }
-
-                    var args = stack.slice(-argCount);
-                    var match = true;
-
-                    for (var i = 0; i < clause.sig.length; ++i) {
-                        if (args[i].type !== clause.sig[i] && clause.sig[i] !== 'any') {
-                            match = false;
-                            break;
-                        }
-                    }
-
-                    if (match) {
-                        return clause;
-                    }
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            return undefined;
+exports.default = new _Operator2.default({
+    name: '-',
+    clauses: [{
+        sig: ['float', 'float'],
+        desc: 'Floating-point subtraction.',
+        body: function body(context, left, right) {
+            context.push((0, _util.term)('float', left.value - right.value));
         }
-    }]);
+    }, {
+        sig: ['bigint', 'bigint'],
+        desc: 'Integer subtraction.',
+        body: function body(context, left, right) {
+            context.push((0, _util.term)('bigint', left.value.subtract(right.value)));
+        }
+    }]
+});
 
-    return Operator;
-}();
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
 
-exports.default = Operator;
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'ma',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Floating-point absolute value.',
+        body: function body(context, left) {
+            context.stack.push((0, _util.term)('float', Math.abs(left.value)));
+        }
+    }, {
+        sig: ['bigint'],
+        desc: 'Integer absolute value.',
+        body: function body(context, left) {
+            context.push((0, _util.term)('bigint', left.value.abs()));
+        }
+    }]
+});
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _operators = __webpack_require__(3);
+
+var _operators2 = _interopRequireDefault(_operators);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var docsPage = document.getElementById('docs');
+
+docsPage.innerHTML += '<h2 class="doc-heading">Operators</h2>';
+
+Object.values(_operators2.default).forEach(function (op) {
+    var clausesDesc = op.clauses.map(function (clause) {
+        var args = clause.sig.join(', ') || 'none';
+        var desc = clause.desc || 'No description available.';
+
+        return '\n            <div class="doc-clause">\n                <div class="doc-section">\n                    <span>Arguments</span>\n                    <pre>' + args + '</pre>\n                </div>\n                <div class="doc-section">\n                    <span>Description</span>\n                    <p>' + desc + '</p>\n                </div>\n            </div>\n        ';
+    });
+
+    docsPage.innerHTML += '\n        <div class="doc-operator">\n            <div class="doc-name">' + op.name + '</div>\n            ' + clausesDesc.join('') + '\n        </div>\n    ';
+});
 
 /***/ }),
 /* 16 */
@@ -2767,34 +2794,6 @@ document.querySelectorAll('.nav a').forEach(function (navLink) {
 });
 
 changePage();
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _operators = __webpack_require__(2);
-
-var _operators2 = _interopRequireDefault(_operators);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var docsPage = document.getElementById('docs');
-
-docsPage.innerHTML += '<h2 class="doc-heading">Operators</h2>';
-
-Object.values(_operators2.default).forEach(function (op) {
-    var clausesDesc = op.clauses.map(function (clause) {
-        var args = clause.sig.join(', ') || 'none';
-        var desc = clause.desc || 'No description available.';
-
-        return '\n            <div class="doc-clause">\n                <div class="doc-section">\n                    <span>Arguments</span>\n                    <pre>' + args + '</pre>\n                </div>\n                <div class="doc-section">\n                    <span>Description</span>\n                    <p>' + desc + '</p>\n                </div>\n            </div>\n        ';
-    });
-
-    docsPage.innerHTML += '\n        <div class="doc-operator">\n            <div class="doc-name">' + op.name + '</div>\n            ' + clausesDesc.join('') + '\n        </div>\n    ';
-});
 
 /***/ })
 /******/ ]);
