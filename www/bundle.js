@@ -74,6 +74,10 @@ var _Context = __webpack_require__(11);
 
 var _Context2 = _interopRequireDefault(_Context);
 
+__webpack_require__(17);
+
+__webpack_require__(16);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var inputForm = document.getElementById('inputForm');
@@ -1032,11 +1036,13 @@ exports.default = new _Operator2.default({
     name: '+',
     clauses: [{
         sig: ['float', 'float'],
+        desc: 'Floating-point addition.',
         body: function body(context, left, right) {
             context.push((0, _util.term)('float', left.value + right.value));
         }
     }, {
         sig: ['bigint', 'bigint'],
+        desc: 'Integer addition.',
         body: function body(context, left, right) {
             context.push((0, _util.term)('bigint', left.value.add(right.value)));
         }
@@ -1069,8 +1075,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _ref;
-
 var _util = __webpack_require__(4);
 
 var _Operator = __webpack_require__(15);
@@ -1079,18 +1083,21 @@ var _Operator2 = _interopRequireDefault(_Operator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 exports.default = new _Operator2.default({
     name: 'ma',
-    clauses: [(_ref = {
+    clauses: [{
         sig: ['float'],
+        desc: 'Floating-point absolute value.',
         body: function body(context, left) {
             context.stack.push((0, _util.term)('float', Math.abs(left.value)));
         }
-    }, _defineProperty(_ref, 'sig', ['bigint']), _defineProperty(_ref, 'body', function body(context, left) {
-        context.push((0, _util.term)('bigint', left.value.abs()));
-    }), _ref)]
+    }, {
+        sig: ['bigint'],
+        desc: 'Integer absolute value.',
+        body: function body(context, left) {
+            context.push((0, _util.term)('bigint', left.value.abs()));
+        }
+    }]
 });
 
 /***/ }),
@@ -1114,6 +1121,7 @@ exports.default = new _Operator2.default({
     name: 'd',
     clauses: [{
         sig: ['any'],
+        desc: 'Prints a token to the output.',
         body: function body(context, token) {
             context.displayToken(token);
         }
@@ -1144,6 +1152,7 @@ exports.default = new _Operator2.default({
     name: '*',
     clauses: [{
         sig: ['float', 'float'],
+        desc: 'Floating-point multiplication.',
         body: function body(context, left, right) {
             context.stack.push((0, _util.term)('float', left.value * right.value));
         }
@@ -1173,11 +1182,13 @@ exports.default = new _Operator2.default({
     name: '-',
     clauses: [{
         sig: ['float', 'float'],
+        desc: 'Floating-point subtraction.',
         body: function body(context, left, right) {
             context.push((0, _util.term)('float', left.value - right.value));
         }
     }, {
         sig: ['bigint', 'bigint'],
+        desc: 'Integer subtraction.',
         body: function body(context, left, right) {
             context.push((0, _util.term)('bigint', left.value.subtract(right.value)));
         }
@@ -1207,6 +1218,7 @@ exports.default = new _Operator2.default({
     name: '/',
     clauses: [{
         sig: ['float', 'float'],
+        desc: 'Floating-point division.',
         body: function body(context, left, right) {
             context.stack.push((0, _util.term)('float', left.value / right.value));
         }
@@ -2633,6 +2645,7 @@ exports.default = new _Operator2.default({
     name: 'r',
     clauses: [{
         sig: [],
+        desc: 'Consumes the entire input and parses it into a token.',
         body: function body(context) {
             var _parser$parse = _grammar2.default.parse(context.input),
                 _parser$parse2 = _slicedToArray(_parser$parse, 1),
@@ -2720,6 +2733,68 @@ var Operator = function () {
 }();
 
 exports.default = Operator;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function changePage(ev) {
+    if (typeof ev !== 'undefined') {
+        ev.preventDefault();
+        window.location.hash = ev.target.href.replace(/.*#/, '');
+    }
+
+    var page = ev && ev.target.href.replace(/.*#/, '') || window.location.hash && window.location.hash.replace(/.*#/, '') || 'interpreter';
+
+    var activeLink = document.querySelector('.nav .active');
+    if (activeLink !== null) {
+        activeLink.className = '';
+    }
+    document.querySelector('a[href="#' + page + '"]').className = 'active';
+
+    var activePage = document.querySelector('.page.visible');
+    if (activePage !== null) {
+        activePage.className = 'page';
+    }
+    document.getElementById(page).className = 'page visible';
+}
+
+document.querySelectorAll('.nav a').forEach(function (navLink) {
+    return navLink.addEventListener('click', changePage);
+});
+
+changePage();
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _operators = __webpack_require__(2);
+
+var _operators2 = _interopRequireDefault(_operators);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var docsPage = document.getElementById('docs');
+
+docsPage.innerHTML += '<h2 class="doc-heading">Operators</h2>';
+
+Object.values(_operators2.default).forEach(function (op) {
+    var clausesDesc = op.clauses.map(function (clause) {
+        var args = clause.sig.join(', ') || 'none';
+        var desc = clause.desc || 'No description available.';
+
+        return '\n            <div class="doc-clause">\n                <div class="doc-section">\n                    <span>Arguments</span>\n                    <pre>' + args + '</pre>\n                </div>\n                <div class="doc-section">\n                    <span>Description</span>\n                    <p>' + desc + '</p>\n                </div>\n            </div>\n        ';
+    });
+
+    docsPage.innerHTML += '\n        <div class="doc-operator">\n            <div class="doc-name">' + op.name + '</div>\n            ' + clausesDesc.join('') + '\n        </div>\n    ';
+});
 
 /***/ })
 /******/ ]);
