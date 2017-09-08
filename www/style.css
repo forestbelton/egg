@@ -13,6 +13,7 @@ h1 {
 }
 
 .nav {
+    margin-left: 1em;
     list-style-type: none;
     display: inline-block;
 }
