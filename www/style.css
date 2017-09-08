@@ -1,7 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 
 * {
+    margin: 0;
+    padding: 0;
     font-family: 'Roboto Mono', monospace;
+}
+
+h1 {
+    padding: 1em 0 0 1em;
+    margin-bottom: 1em;
+    background: #bdc3c7;
+}
+
+#root {
+    padding: 0 2em;
 }
 
 #inputForm button[type="submit"] {
@@ -11,8 +23,14 @@
     font-size: 1.25em;
     font-weight: bold;
     height: 2em;
-    background: #3498db;
+    background: #2980b9;
     border: 0;
+    outline: none;
+    min-width: 20em;
+}
+
+#inputForm button[type="submit"]:hover {
+    background: #3498db;
 }
 
 .section {
@@ -36,5 +54,6 @@
 .output > textarea {
     background: #ccc;
     outline: none;
+    min-height: 15em;
 }
 

@@ -1,5 +1,5 @@
-var parser = require('./lib/grammar.pegjs')
-var operators = require('./lib/operators')
+import parser from './lib/grammar.pegjs'
+import operators from './lib/operators'
 
 var inputForm = document.getElementById('inputForm')
 var codeField = document.getElementById('code')
@@ -66,6 +66,6 @@ inputForm.addEventListener('submit', ev => {
         outputField.value = output
     } catch(e) {
         outputField.style.color = '#c0392b'
-        outputField.value = e.toString()
+        outputField.value = e.stack.toString()
     }
 })
