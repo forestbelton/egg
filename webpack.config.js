@@ -19,6 +19,7 @@ module.exports = {
                 options: {
                     presets: ['es2015']
                 }
+            }
         ]
     }
 };
