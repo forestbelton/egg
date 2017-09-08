@@ -6,24 +6,25 @@
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <form id="inputForm">
-            <div class="section">
-                <label for="code">Code:</label>
-                <textarea id="code" name="code"></textarea>
-            </div>
-            <div class="section">
-                <label for="input">Input:</label>
-                <textarea id="input" name="input"></textarea>
-            </div>
+        <h1>egg interpreter</h1>
+        <div id="root">
+            <form id="inputForm">
+                <div class="section">
+                    <label for="code">Code:</label>
+                    <textarea id="code" name="code"></textarea>
+                </div>
+                <div class="section">
+                    <label for="input">Input:</label>
+                    <textarea id="input" name="input"></textarea>
+                </div>
 
-            <button type="submit">Run</button>
-        </form>
-
-        <div class="section output">
-            <label for="output">Output:</label>
-            <textarea readonly id="output" name="output"></textarea>
+                <button type="submit">Run</button>
+            </form>
+            <div class="section output">
+                <label for="output">Output:</label>
+                <textarea readonly id="output" name="output"></textarea>
+            </div>
         </div>
-
         <script src="bundle.js"></script>
     </body>
 </html>
