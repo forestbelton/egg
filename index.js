@@ -1,34 +1,10 @@
 import Context from './lib/Context'
+import './lib/ui/router'
 
-var inputForm = document.getElementById('inputForm')
-var codeField = document.getElementById('code')
-var inputField = document.getElementById('input')
-var outputField = document.getElementById('output')
-
-function changePage(ev) {
-    const page = (ev && ev.target.href.replace(/.*#/, ''))
-        || (window.location.hash && window.location.hash.replace(/.*#/, ''))
-        || 'interpreter'
-
-    const activeLink = document.querySelector('.nav .active')
-    if (activeLink !== null) {
-        activeLink.className = ''
-    }
-    document.querySelector(`a[href="#${page}"]`).className = 'active'
-
-    const activePage = document.querySelector('.page.visible')
-    if (activePage !== null) {
-        activePage.className = 'page'
-    }
-
-    document.getElementById(page).className = 'page visible'
-}
-
-document.querySelectorAll('.nav a').forEach(navLink =>
-    navLink.addEventListener('click', changePage)
-)
-
-changePage()
+const inputForm = document.getElementById('inputForm')
+const codeField = document.getElementById('code')
+const inputField = document.getElementById('input')
+const outputField = document.getElementById('output')
 
 inputForm.addEventListener('submit', ev => {
     ev.preventDefault()
