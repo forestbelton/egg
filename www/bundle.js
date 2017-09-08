@@ -310,8 +310,8 @@ function peg$parse(input, options) {
                  value: op
              }
          },
-      peg$c2 = /^[*\/+dr\-]/,
-      peg$c3 = peg$classExpectation(["*", "/", "+", "d", "r", "-"], false, false),
+      peg$c2 = /^[*\/+\-dr\]]/,
+      peg$c3 = peg$classExpectation(["*", "/", "+", "-", "d", "r", "]"], false, false),
       peg$c4 = "@",
       peg$c5 = peg$literalExpectation("@", false),
       peg$c6 = /^[0-9a-n]/,
@@ -1024,6 +1024,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _array = __webpack_require__(17);
+
+var _array2 = _interopRequireDefault(_array);
+
 var _display = __webpack_require__(8);
 
 var _display2 = _interopRequireDefault(_display);
@@ -1059,6 +1063,7 @@ exports.default = {
     '-': _subtract2.default,
     '*': _multiply2.default,
     '/': _divide2.default,
+    ']': _array2.default,
     'd': _display2.default,
     'r': _read2.default,
 
@@ -1174,7 +1179,8 @@ var Context = function () {
                 var clause = op.matchingClause(this.stack);
 
                 if (typeof clause !== 'undefined') {
-                    var args = [this].concat(this.stack.splice(-clause.sig.length));
+                    var args = clause.sig.length === 0 ? [this] : [this].concat(this.stack.splice(-clause.sig.length));
+
                     clause.body.apply(null, args);
                 } else {
                     throw new Error('could not find matching clause for ' + op.name);
@@ -1186,6 +1192,8 @@ var Context = function () {
     }, {
         key: 'displayToken',
         value: function displayToken(token) {
+            var _this2 = this;
+
             switch (token.type) {
                 case 'string':
                     this.output += token.value;
@@ -1197,6 +1205,12 @@ var Context = function () {
 
                 case 'float':
                     this.output += token.value.toString();
+                    break;
+
+                case 'array':
+                    token.value.forEach(function (child) {
+                        return _this2.displayToken(child);
+                    });
                     break;
             }
         }
@@ -2794,6 +2808,37 @@ document.querySelectorAll('.nav a').forEach(function (navLink) {
 });
 
 changePage();
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: ']',
+    clauses: [{
+        sig: [],
+        desc: 'Builds array from current stack.',
+        body: function body(context) {
+            var oldStack = context.stack;
+            context.stack = [(0, _util.term)('array', oldStack)];
+        }
+    }]
+});
 
 /***/ })
 /******/ ]);
