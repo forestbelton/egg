@@ -14,21 +14,3 @@ Properties
 * __TODO__: Implicit coercion between types in the number hierarchy.
 
 Check it out [here](https://forestbelton.github.io/egg/www/).
-
-Example operators
------------------
-
-Addition of two numbers:
-
-    1 2 +
-
-    ==> 3
-
-Print value:
-
-    3 d
-
-Read in number:
-
-    r
-
