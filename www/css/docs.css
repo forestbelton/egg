@@ -36,3 +36,7 @@
 .doc-section > pre {
     background: #ccc;
 }
+
+.doc-section + .doc-section {
+    margin-top: 0.25em;
+}
