@@ -67,78 +67,93 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var parser = __webpack_require__(1)
-var operators = __webpack_require__(2)
+"use strict";
 
-var inputForm = document.getElementById('inputForm')
-var codeField = document.getElementById('code')
-var inputField = document.getElementById('input')
-var outputField = document.getElementById('output')
+
+var _grammar = __webpack_require__(1);
+
+var _grammar2 = _interopRequireDefault(_grammar);
+
+var _operators = __webpack_require__(2);
+
+var _operators2 = _interopRequireDefault(_operators);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var inputForm = document.getElementById('inputForm');
+var codeField = document.getElementById('code');
+var inputField = document.getElementById('input');
+var outputField = document.getElementById('output');
 
 function Context(code, input) {
-	this.stack = []
-	this.code = code
-	this.input = input
-	this.output = ''
+				this.stack = [];
+				this.code = code;
+				this.input = input;
+				this.output = '';
 }
 
-Context.prototype.execute = function() {
-	const tokens = parser.parse(this.code)
+Context.prototype.execute = function () {
+				var _this = this;
 
-	tokens.forEach(token => this.executeToken(token))
-	this.stack.forEach(elem => this.displayToken(elem))
+				var tokens = _grammar2.default.parse(this.code);
 
-	return this.output
-}
+				tokens.forEach(function (token) {
+								return _this.executeToken(token);
+				});
+				this.stack.forEach(function (elem) {
+								return _this.displayToken(elem);
+				});
 
-Context.prototype.executeToken = function(token) {
-    if (token.type === 'operator') {
-        var op = operators[token.value]
+				return this.output;
+};
 
-        if (typeof op === 'undefined') {
-            throw new Error('unsupported operator: ' + token.value)
-        }
+Context.prototype.executeToken = function (token) {
+				if (token.type === 'operator') {
+								var op = _operators2.default[token.value];
 
-        op(this)
-    } else {
-        this.stack.push(token)
-    }
-}
+								if (typeof op === 'undefined') {
+												throw new Error('unsupported operator: ' + token.value);
+								}
 
-Context.prototype.displayToken = function(token) {
-	switch (token.type) {
-		case 'string':
-			this.output += token.value
-			break
+								op(this);
+				} else {
+								this.stack.push(token);
+				}
+};
 
-		case 'bigint':
-			this.output += token.value
-			break
+Context.prototype.displayToken = function (token) {
+				switch (token.type) {
+								case 'string':
+												this.output += token.value;
+												break;
 
-		case 'float':
-			this.output += token.value.toString()
-			break
-	}
-}
+								case 'bigint':
+												this.output += token.value;
+												break;
 
-inputForm.addEventListener('submit', ev => {
-    ev.preventDefault()
+								case 'float':
+												this.output += token.value.toString();
+												break;
+				}
+};
 
-    var code = codeField.value
-    var input = inputField.value
-    
-    try {
-		var context = new Context(code, input)
-		var output = context.execute()
+inputForm.addEventListener('submit', function (ev) {
+				ev.preventDefault();
 
-        outputField.style.color = '#000'
-        outputField.value = output
-    } catch(e) {
-        outputField.style.color = '#c0392b'
-        outputField.value = e.toString()
-    }
-})
+				var code = codeField.value;
+				var input = inputField.value;
 
+				try {
+								var context = new Context(code, input);
+								var output = context.execute();
+
+								outputField.style.color = '#000';
+								outputField.value = output;
+				} catch (e) {
+								outputField.style.color = '#c0392b';
+								outputField.value = e.stack.toString();
+				}
+});
 
 /***/ }),
 /* 1 */
@@ -996,37 +1011,135 @@ module.exports = {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function arity(name, count, body) {
-    return (context) => {
-		const { stack } = context
-        const args = [context]
+"use strict";
 
-        for (var i = 0; i < count; ++i) {
-            const arg = stack.pop()
 
-            if (typeof arg === 'undefined') {
-                throw new Error(`${name} has an arity of ${count}, and only found ${i}`)
-            }
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-            args.push(arg)
-        }
+var _plus = __webpack_require__(3);
 
-        return body.apply(null, args)
-    }
-}
+var _plus2 = _interopRequireDefault(_plus);
 
-module.exports = {
-    '+': arity('+', 2, (context, left, right) => {
-        if (left.type !== 'float' || right.type !== 'float') {
-            throw new Error('+ only supported for float,float')
-        }
+var _abs = __webpack_require__(5);
 
-        context.stack.push({ type: 'float', value: left.value + right.value })
-    })
+var _abs2 = _interopRequireDefault(_abs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    '+': _plus2.default,
+    'ma': _abs2.default
 };
 
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(4);
+
+exports.default = (0, _util.op)('+', [{
+    sig: ['float', 'float'],
+    body: function body(context, left, right) {
+        context.stack.push((0, _util.term)('float', left.value + right.value));
+    }
+}]);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.term = term;
+exports.op = op;
+function term(type, value) {
+    return { type: type, value: value };
+}
+
+function op(name, clauses) {
+    return function (context) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = clauses[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var clause = _step.value;
+
+                var argCount = clause.sig.length;
+                if (context.stack.length < argCount) {
+                    continue;
+                }
+
+                var args = context.stack.splice(-argCount);
+                var match = true;
+
+                for (var i = 0; i < clause.sig.length; ++i) {
+                    if (args[i].type !== clause.sig[i]) {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    args.unshift(context);
+                    clause.body.apply(null, args);
+                    return;
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
+        throw new Error("could not find matching clause for " + name);
+    };
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(4);
+
+exports.default = (0, _util.op)('ma', [{
+    sig: ['float'],
+    body: function body(context, left) {
+        context.stack.push((0, _util.term)('float', Math.abs(left.value)));
+    }
+}]);
 
 /***/ })
 /******/ ]);
