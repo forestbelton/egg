@@ -12,8 +12,27 @@ h1 {
     background: #bdc3c7;
 }
 
-#root {
+.nav {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.nav > li {
+    display: inline-block;
+}
+
+.nav .active {
+    color: black;
+    text-decoration: none;
+}
+
+.page {
+    display: none;
     padding: 0 2em;
+}
+
+.page.visible {
+    display: block;
 }
 
 #inputForm button[type="submit"] {
