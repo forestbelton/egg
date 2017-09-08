@@ -3,11 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>egg</title>
-        <link href="style.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
     </head>
     <body>
-        <h1>egg interpreter</h1>
-        <div id="root">
+        <h1>
+            🥚 egg
+            <ul class="nav">
+                <li><a href="#interpreter">interpreter</a></li>
+                <li><a href="#docs">docs</a></li>
+            </ul>
+        </h1>
+        <div class="page" id="interpreter">
             <form id="inputForm">
                 <div class="section">
                     <label for="code">Code:</label>
@@ -25,6 +31,7 @@
                 <textarea readonly id="output" name="output"></textarea>
             </div>
         </div>
+        <div class="page" id="docs"></div>
         <script src="bundle.js"></script>
     </body>
 </html>

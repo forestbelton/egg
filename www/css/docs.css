@@ -1,0 +1,42 @@
+.doc-heading {
+    border-bottom: 2px solid #000;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+.doc-name {
+    font-size: 1.25em;
+    border-bottom: 2px solid #000;
+}
+
+.doc-clause {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #ccc;
+}
+
+.doc-clause:last-of-type {
+    border: 0;
+}
+
+.doc-name + .doc-clause {
+    margin-top: 1em;
+}
+
+.doc-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.doc-section > span {
+    min-width: 10em;
+    font-weight: bold;
+}
+
+.doc-section > pre {
+    background: #ccc;
+}
+
+.doc-section + .doc-section {
+    margin-top: 0.25em;
+}

@@ -1,0 +1,23 @@
+.section {
+    margin-bottom: 2em;
+}
+
+.section > label {
+    font-weight: bold;
+    font-size: 1.25em;
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.section > textarea {
+    width: 100%;
+    display: block;
+    resize: none;
+    min-height: 10em;
+}
+
+.output > textarea {
+    background: #ccc;
+    outline: none;
+    min-height: 15em;
+}

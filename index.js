@@ -1,9 +1,12 @@
 import Context from './lib/Context'
 
-var inputForm = document.getElementById('inputForm')
-var codeField = document.getElementById('code')
-var inputField = document.getElementById('input')
-var outputField = document.getElementById('output')
+import './lib/ui/docgen'
+import './lib/ui/router'
+
+const inputForm = document.getElementById('inputForm')
+const codeField = document.getElementById('code')
+const inputField = document.getElementById('input')
+const outputField = document.getElementById('output')
 
 inputForm.addEventListener('submit', ev => {
     ev.preventDefault()

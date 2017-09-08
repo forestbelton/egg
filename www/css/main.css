@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('docs.css');
+@import url('interpreter.css');
 
 * {
     margin: 0;
@@ -12,11 +14,31 @@ h1 {
     background: #bdc3c7;
 }
 
-#root {
+.nav {
+    margin-left: 1em;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.nav > li {
+    display: inline-block;
+}
+
+.nav .active {
+    color: black;
+    text-decoration: none;
+}
+
+.page {
+    display: none;
     padding: 0 2em;
 }
 
-#inputForm button[type="submit"] {
+.page.visible {
+    display: block;
+}
+
+button {
     margin-bottom: 2em;
     cursor: pointer;
     color: #fff;
@@ -29,31 +51,6 @@ h1 {
     min-width: 20em;
 }
 
-#inputForm button[type="submit"]:hover {
+button:hover {
     background: #3498db;
 }
-
-.section {
-    margin-bottom: 2em;
-}
-
-.section > label {
-    font-weight: bold;
-    font-size: 1.25em;
-    display: block;
-    margin-bottom: 0.5em;
-}
-
-.section > textarea {
-    width: 100%;
-    display: block;
-    resize: none;
-    min-height: 10em;
-}
-
-.output > textarea {
-    background: #ccc;
-    outline: none;
-    min-height: 15em;
-}
-
