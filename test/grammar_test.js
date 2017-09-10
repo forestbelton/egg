@@ -28,6 +28,14 @@ describe('grammar', function() {
         expect(stack[0].value.toJSNumber()).to.equal(1)
     })
 
+    it('should parse an integer in hex notation', function() {
+        const stack = parser.parse('xff')
+
+        expect(stack).to.have.length(1)
+        expect(stack[0].type).to.equal('bigint')
+        expect(stack[0].value.toJSNumber()).to.equal(255)
+    })
+
     it('should parse a float', function() {
         const stack = parser.parse('1.')
 
