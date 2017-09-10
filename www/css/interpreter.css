@@ -21,3 +21,8 @@
     outline: none;
     min-height: 15em;
 }
+
+#byteCount {
+    color: #bdc3c7;
+    margin-top: 0.5em;
+}

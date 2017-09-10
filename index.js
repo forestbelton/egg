@@ -7,6 +7,11 @@ const inputForm = document.getElementById('inputForm')
 const codeField = document.getElementById('code')
 const inputField = document.getElementById('input')
 const outputField = document.getElementById('output')
+const byteCount = document.getElementById('byteCount')
+
+codeField.addEventListener('keyup', ev => {
+    byteCount.innerHTML = `${ev.target.value.length} bytes`
+})
 
 inputForm.addEventListener('submit', ev => {
     ev.preventDefault()
