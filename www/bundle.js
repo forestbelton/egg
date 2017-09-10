@@ -1578,8 +1578,8 @@ function peg$parse(input, options) {
                   value: op
               }
           },
-      peg$c8 = /^[*\/+\-dpr\]<>\^,]/,
-      peg$c9 = peg$classExpectation(["*", "/", "+", "-", "d", "p", "r", "]", "<", ">", "^", ","], false, false),
+      peg$c8 = /^[^A-Z0-9]/,
+      peg$c9 = peg$classExpectation([["A", "Z"], ["0", "9"]], true, false),
       peg$c10 = "@",
       peg$c11 = peg$literalExpectation("@", false),
       peg$c12 = /^[0-9a-n]/,
@@ -1902,11 +1902,11 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    s1 = peg$parseOp1();
+    s1 = peg$parseMathOp();
     if (s1 === peg$FAILED) {
-      s1 = peg$parseMathOp();
+      s1 = peg$parseRotateOp();
       if (s1 === peg$FAILED) {
-        s1 = peg$parseRotateOp();
+        s1 = peg$parseAnyOp();
       }
     }
     if (s1 !== peg$FAILED) {
@@ -1932,7 +1932,7 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseOp1() {
+  function peg$parseAnyOp() {
     var s0;
 
     if (peg$c8.test(input.charAt(peg$currPos))) {
