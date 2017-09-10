@@ -343,8 +343,8 @@ function peg$parse(input, options) {
           },
       peg$c15 = "m",
       peg$c16 = peg$literalExpectation("m", false),
-      peg$c17 = /^[a]/,
-      peg$c18 = peg$classExpectation(["a"], false, false),
+      peg$c17 = /^[acst]/,
+      peg$c18 = peg$classExpectation(["a", "c", "s", "t"], false, false),
       peg$c19 = function(suffix) {
               return 'm' + suffix
           },
@@ -1152,6 +1152,18 @@ var _abs = __webpack_require__(15);
 
 var _abs2 = _interopRequireDefault(_abs);
 
+var _cos = __webpack_require__(23);
+
+var _cos2 = _interopRequireDefault(_cos);
+
+var _sin = __webpack_require__(25);
+
+var _sin2 = _interopRequireDefault(_sin);
+
+var _tan = __webpack_require__(24);
+
+var _tan2 = _interopRequireDefault(_tan);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -1166,7 +1178,10 @@ exports.default = {
     'd': _display2.default,
     'r': _read2.default,
 
-    'ma': _abs2.default
+    'ma': _abs2.default,
+    'mc': _cos2.default,
+    'ms': _sin2.default,
+    'mt': _tan2.default
 };
 
 /***/ }),
@@ -2715,6 +2730,16 @@ exports.default = new _Operator2.default({
             context.push((0, _util.term)('float', left.value / right.value));
         }
     }, {
+        sig: ['string', 'string'],
+        desc: 'Split a string by a separator.',
+        body: function body(context, str, sep) {
+            var words = str.value.split(sep.value).map(function (word) {
+                return (0, _util.term)('string', word);
+            });
+
+            context.push((0, _util.term)('array', words));
+        }
+    }, {
         sig: ['array', 'block'],
         desc: 'Maps over array with block.',
         body: function body(context, xs, f) {
@@ -3188,6 +3213,96 @@ exports.default = new _Operator2.default({
         desc: 'Pushes the first value if the number is nonzero, otherwise the second.',
         body: function body(context, t, f, n) {
             context.push(n.value ? t : f);
+        }
+    }]
+});
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mc',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Cosine function.',
+        body: function body(context, left) {
+            context.stack.push((0, _util.term)('float', Math.cos(left.value)));
+        }
+    }]
+});
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mt',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Tangent function.',
+        body: function body(context, left) {
+            context.stack.push((0, _util.term)('float', Math.tan(left.value)));
+        }
+    }]
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _util = __webpack_require__(1);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'ms',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Sine function.',
+        body: function body(context, left) {
+            context.stack.push((0, _util.term)('float', Math.sin(left.value)));
         }
     }]
 });
