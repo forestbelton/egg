@@ -1,7 +1,7 @@
 .doc-heading {
     border-bottom: 2px solid #000;
     padding-bottom: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 4em;
 }
 
 .doc-name {
@@ -17,6 +17,7 @@
 
 .doc-clause:last-of-type {
     border: 0;
+    padding-bottom: 3em;
 }
 
 .doc-name + .doc-clause {
