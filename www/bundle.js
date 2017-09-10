@@ -1578,8 +1578,8 @@ function peg$parse(input, options) {
                   value: op
               }
           },
-      peg$c8 = /^[^A-Z0-9]/,
-      peg$c9 = peg$classExpectation([["A", "Z"], ["0", "9"]], true, false),
+      peg$c8 = /^[^A-Z0-9{}]/,
+      peg$c9 = peg$classExpectation([["A", "Z"], ["0", "9"], "{", "}"], true, false),
       peg$c10 = "@",
       peg$c11 = peg$literalExpectation("@", false),
       peg$c12 = /^[0-9a-n]/,
