@@ -2574,6 +2574,11 @@ var inputForm = document.getElementById('inputForm');
 var codeField = document.getElementById('code');
 var inputField = document.getElementById('input');
 var outputField = document.getElementById('output');
+var byteCount = document.getElementById('byteCount');
+
+codeField.addEventListener('keyup', function (ev) {
+    byteCount.innerHTML = ev.target.value.length + ' bytes';
+});
 
 inputForm.addEventListener('submit', function (ev) {
     ev.preventDefault();
