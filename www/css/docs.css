@@ -17,6 +17,7 @@
 
 .doc-clause:last-of-type {
     border: 0;
+    padding-bottom: 3em;
 }
 
 .doc-name + .doc-clause {
