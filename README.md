@@ -1,4 +1,4 @@
-🥚 egg
+🥚 egg [![Build Status](https://travis-ci.org/forestbelton/egg.svg?branch=master)](https://travis-ci.org/forestbelton/egg)
 ===
 
 egg is a stack-based programming language for code golf, not unlike cjam and pyth.
