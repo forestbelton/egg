@@ -33,7 +33,30 @@
                 <textarea readonly id="output" name="output"></textarea>
             </div>
         </div>
-        <div class="page" id="docs"></div>
+        <div class="page" id="docs">
+            <h2 class="doc-heading">Variables</h2>
+            <p>
+                Unless otherwise noted, every uppercase letter is a variable.
+                At the beginning of execution, every variable is initialized
+                to this table. If not included in the table, it is initialized
+                to 0.
+            </p>
+            <table class="doc-variables">
+                <thead>
+                    <th>Name</th>
+                    <th>Initial value</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <h2 class="doc-heading">Operators</h2>
+            <p>
+                Operators pop operands off of the stack and perform a
+                computation, leaving 0 or more output values on the stack. If
+                the stack matches more than one possible clause for an
+                operator, the first one in listed order is chosen.
+            </p>
+            <div class="doc-operators"></div>
+        </div>
         <script src="bundle.js"></script>
     </body>
 </html>

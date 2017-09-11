@@ -1,7 +1,7 @@
 .doc-heading {
     border-bottom: 2px solid #000;
     padding-bottom: 1em;
-    margin-bottom: 4em;
+    margin-bottom: 1em;
 }
 
 .doc-name {
@@ -40,4 +40,18 @@
 
 .doc-section + .doc-section {
     margin-top: 0.25em;
+}
+
+/* awful hack */
+.doc-variables + .doc-heading + p {
+    margin-bottom: 3em;
+}
+
+.doc-variables {
+    margin: 3em 0;
+    text-align: left;
+}
+
+.doc-variables th {
+    min-width: 5em;
 }
