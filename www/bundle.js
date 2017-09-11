@@ -3518,17 +3518,17 @@ var _variables2 = _interopRequireDefault(_variables);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var variableDocs = document.querySelector('.doc-variables > tbody');
-var operatorDocs = document.querySelector('.doc-operators');
+var operatorDocs = document.querySelector('.doc-operators > tbody');
 
 Object.values(_operators2.default).forEach(function (op) {
     var clausesDesc = op.clauses.map(function (clause) {
         var args = clause.sig.join(', ') || 'none';
         var desc = clause.desc || 'No description available.';
 
-        return '\n            <div class="doc-clause">\n                <div class="doc-section">\n                    <span>Arguments</span>\n                    <pre>' + args + '</pre>\n                </div>\n                <div class="doc-section">\n                    <span>Description</span>\n                    <p>' + desc + '</p>\n                </div>\n            </div>\n        ';
+        return '\n            <tr class="doc-operator">\n                <td>' + op.name + '</td>\n                <td>' + args + '</td>\n                <td>' + desc + '</td>\n            </tr>\n        ';
     });
 
-    operatorDocs.innerHTML += '\n        <div class="doc-operator">\n            <div class="doc-name">' + op.name + '</div>\n            ' + clausesDesc.join('') + '\n        </div>\n    ';
+    operatorDocs.innerHTML += clausesDesc.join('');
 });
 
 _variables2.default.forEach(function (v) {
