@@ -9,6 +9,13 @@ const inputField = document.getElementById('input')
 const outputField = document.getElementById('output')
 const byteCount = document.getElementById('byteCount')
 
+const searchParams = new URLSearchParams(window.location.search)
+const code = searchParams.get('try')
+
+if (code !== '') {
+    codeField.value = unescape(code)
+}
+
 codeField.addEventListener('keyup', ev => {
     byteCount.innerHTML = `${ev.target.value.length} bytes`
 })
