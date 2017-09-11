@@ -18,8 +18,6 @@ Check it out [here](https://forestbelton.github.io/egg/).
 Examples
 ========
 
-**NOTE**: The language itself does not yet support comments, so every line starting with a # in the following examples represents a comment and should be removed before executing.
-
 FizzBuzz (54 bytes)
 --------
 
@@ -34,10 +32,11 @@ Annotated:
 
 # Execute the following block 100 times
 {
-    # Compute (I + 1) % 5 == 0 and store in A
+    # Compute (I + 1) % 5 == 0 and store in A. I + 1 is duplicated
+    # with , to be used in the following computation.
     I 1+ , 5% 0= :A
 
-    # Compute (I + 1) % 3 == 0 and store in B
+    # Compute (I + 1) % 3 == 0 and store in B.
     3% 0= :B
 
     {

@@ -12,7 +12,7 @@ const byteCount = document.getElementById('byteCount')
 const searchParams = new URLSearchParams(window.location.search)
 const code = searchParams.get('try')
 
-if (code !== '') {
+if (code !== null) {
     codeField.value = unescape(code)
 }
 
