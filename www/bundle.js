@@ -3525,7 +3525,7 @@ exports.default = function (v) {
         name: ':' + v,
         clauses: [{
             sig: ['any'],
-            desc: 'Sets the variable ${v}.',
+            desc: 'Sets the variable ' + v + '.',
             body: function body(context, value) {
                 context.env[v] = value;
             }
