@@ -18,8 +18,6 @@ Check it out [here](https://forestbelton.github.io/egg/).
 Examples
 ========
 
-**NOTE**: The language itself does not yet support comments, so every line starting with a # in the following examples represents a comment and should be removed before executing.
-
 FizzBuzz (54 bytes)
 --------
 
