@@ -41,10 +41,12 @@
                 to this table. If not included in the table, it is initialized
                 to 0.
             </p>
-            <table class="doc-variables">
+            <table class="doc-table doc-variables" rules="groups">
                 <thead>
-                    <th>Name</th>
-                    <th>Initial value</th>
+                    <tr>
+                        <th>Name</th>
+                        <th>Initial value</th>
+                    </tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -55,7 +57,16 @@
                 the stack matches more than one possible clause for an
                 operator, the first one in listed order is chosen.
             </p>
-            <div class="doc-operators"></div>
+            <table class="doc-table doc-operators" rules="groups">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Arguments</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
         <script src="bundle.js"></script>
     </body>
