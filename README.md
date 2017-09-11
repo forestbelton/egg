@@ -13,4 +13,4 @@ Properties
 * Whitespace is optional except to disambiguate token delineation.
 * Implicit coercion between compatible types.
 
-Check it out [here](https://forestbelton.github.io/egg/www/).
+Check it out [here](https://forestbelton.github.io/egg/).
