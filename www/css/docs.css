@@ -29,3 +29,12 @@
 .doc-table > tbody tr:first-of-type td {
     padding-top: 0.5em;
 }
+
+.doc-types-list {
+    margin: 3em 0 3em;
+    padding-left: 1.5em;
+}
+
+.doc-types-list li {
+    margin-bottom: 0.25em;
+}

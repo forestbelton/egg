@@ -34,6 +34,18 @@
             </div>
         </div>
         <div class="page" id="docs">
+            <h2 class="doc-heading">Types and coercion</h2>
+            <p>
+                Types are automatically coerced (if possible) within the
+                context of operator execution. The following types exist:
+            </p>
+            <ul class="doc-types-list">
+                <li><pre>bigint</pre> (coerces to <pre>float</pre>)</pre></li>
+                <li><pre>float</pre></li>
+                <li><pre>char</pre> (coerces to <pre>string</pre>)</li>
+                <li><pre>string</pre></li>
+                <li><pre>array</pre></li>
+            </ul>
             <h2 class="doc-heading">Variables</h2>
             <p>
                 Unless otherwise noted, every uppercase letter is a variable.
