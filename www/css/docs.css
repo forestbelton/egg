@@ -4,54 +4,32 @@
     margin-bottom: 1em;
 }
 
-.doc-name {
-    font-size: 1.25em;
-    border-bottom: 2px solid #000;
-}
-
-.doc-clause {
-    margin-bottom: 1em;
-    padding-bottom: 1em;
-    border-bottom: 2px solid #ccc;
-}
-
-.doc-clause:last-of-type {
-    border: 0;
-    padding-bottom: 3em;
-}
-
-.doc-name + .doc-clause {
-    margin-top: 1em;
-}
-
-.doc-section {
-    display: flex;
-    flex-direction: row;
-}
-
-.doc-section > span {
-    min-width: 10em;
-    font-weight: bold;
-}
-
-.doc-section > pre {
+.doc-table pre {
     background: #ccc;
 }
 
-.doc-section + .doc-section {
-    margin-top: 0.25em;
-}
-
-/* awful hack */
-.doc-variables + .doc-heading + p {
-    margin-bottom: 3em;
-}
-
-.doc-variables {
+.doc-table {
+    width: 100%;
     margin: 3em 0;
     text-align: left;
 }
 
-.doc-variables th {
-    min-width: 5em;
+.doc-table > thead {
+    margin-bottom: 1em;
+}
+
+.doc-table > thead > tr {
+    border-bottom: 2px solid #000;
+}
+
+.doc-table > thead th {
+    padding-bottom: 0.5em;
+}
+
+.doc-table > tbody tr:first-of-type td {
+    padding-top: 0.5em;
+}
+
+.doc-table td {
+    /*padding-right: 5em;*/
 }
