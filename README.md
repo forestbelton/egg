@@ -34,10 +34,11 @@ Annotated:
 
 # Execute the following block 100 times
 {
-    # Compute (I + 1) % 5 == 0 and store in A
+    # Compute (I + 1) % 5 == 0 and store in A. I + 1 is duplicated
+    # with , to be used in the following computation.
     I 1+ , 5% 0= :A
 
-    # Compute (I + 1) % 3 == 0 and store in B
+    # Compute (I + 1) % 3 == 0 and store in B.
     3% 0= :B
 
     {
