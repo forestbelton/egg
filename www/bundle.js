@@ -2751,7 +2751,19 @@ var Context = function () {
                     break;
 
                 case 'block':
-                    this.output += '<block>';
+                    this.output += '{ ';
+
+                    token.value.forEach(function (child) {
+                        _this3.displayToken(child);
+                        _this3.output += ' ';
+                    });
+
+                    this.output += '}';
+                    break;
+
+                // needed only for printing block source code
+                case 'operator':
+                    this.output += token.value;
                     break;
 
                 case 'char':
