@@ -14,6 +14,7 @@ const code = searchParams.get('try')
 
 if (code !== null) {
     codeField.value = unescape(code)
+    byteCount.innerHTML = `${codeField.value} bytes`
 }
 
 codeField.addEventListener('keyup', ev => {
