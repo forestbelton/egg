@@ -2641,37 +2641,41 @@ var _read = __webpack_require__(23);
 
 var _read2 = _interopRequireDefault(_read);
 
-var _set = __webpack_require__(24);
+var _semicolon = __webpack_require__(24);
+
+var _semicolon2 = _interopRequireDefault(_semicolon);
+
+var _set = __webpack_require__(25);
 
 var _set2 = _interopRequireDefault(_set);
 
-var _subtract = __webpack_require__(25);
+var _subtract = __webpack_require__(26);
 
 var _subtract2 = _interopRequireDefault(_subtract);
 
-var _permute = __webpack_require__(26);
+var _permute = __webpack_require__(27);
 
 var _permute2 = _interopRequireDefault(_permute);
 
-var _abs = __webpack_require__(27);
+var _abs = __webpack_require__(28);
 
 var _abs2 = _interopRequireDefault(_abs);
 
-var _cos = __webpack_require__(28);
+var _cos = __webpack_require__(29);
 
 var _cos2 = _interopRequireDefault(_cos);
 
-var _sin = __webpack_require__(29);
+var _sin = __webpack_require__(30);
 
 var _sin2 = _interopRequireDefault(_sin);
 
-var _tan = __webpack_require__(30);
+var _tan = __webpack_require__(31);
 
 var _tan2 = _interopRequireDefault(_tan);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _subtract2.default, _abs2.default, _cos2.default, _sin2.default, _tan2.default];
+var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _abs2.default, _cos2.default, _sin2.default, _tan2.default];
 
 var table = {};
 operators.forEach(function (op) {
@@ -2733,9 +2737,9 @@ var _Context = __webpack_require__(6);
 
 var _Context2 = _interopRequireDefault(_Context);
 
-__webpack_require__(31);
-
 __webpack_require__(32);
+
+__webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3594,6 +3598,32 @@ var _Operator2 = _interopRequireDefault(_Operator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.default = new _Operator2.default({
+    name: ';',
+    clauses: [{
+        sig: ['any'],
+        desc: 'Drop the top element of the stack.',
+        body: function body(context) {}
+    }]
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = function (v) {
     return new _Operator2.default({
         name: ':' + v,
@@ -3608,7 +3638,7 @@ exports.default = function (v) {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3642,7 +3672,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3707,7 +3737,6 @@ exports.default = function (permutation) {
                     nextIndex++;
                 }
 
-                debugger;
                 out.forEach(function (token) {
                     return context.push(token);
                 });
@@ -3717,7 +3746,7 @@ exports.default = function (permutation) {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3751,7 +3780,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3779,7 +3808,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3807,7 +3836,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3835,7 +3864,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3872,7 +3901,7 @@ _variables2.default.forEach(function (v) {
 });
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
