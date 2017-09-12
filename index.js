@@ -15,7 +15,7 @@ const input = searchParams.get('input')
 
 if (code !== null) {
     codeField.value = unescape(code)
-    byteCount.innerHTML = `${codeField.value} bytes`
+    byteCount.innerHTML = `${codeField.value.length} bytes`
 }
 
 if (input !== null) {
