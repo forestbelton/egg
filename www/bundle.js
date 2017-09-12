@@ -2657,6 +2657,10 @@ var _permute = __webpack_require__(27);
 
 var _permute2 = _interopRequireDefault(_permute);
 
+var _zip = __webpack_require__(35);
+
+var _zip2 = _interopRequireDefault(_zip);
+
 var _abs = __webpack_require__(28);
 
 var _abs2 = _interopRequireDefault(_abs);
@@ -2679,7 +2683,7 @@ var _tan2 = _interopRequireDefault(_tan);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
+var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _zip2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
 
 var table = {};
 operators.forEach(function (op) {
@@ -2755,9 +2759,15 @@ var byteCount = document.getElementById('byteCount');
 
 var searchParams = new URLSearchParams(window.location.search);
 var code = searchParams.get('try');
+var input = searchParams.get('input');
 
 if (code !== null) {
     codeField.value = unescape(code);
+    byteCount.innerHTML = codeField.value + ' bytes';
+}
+
+if (input !== null) {
+    inputField.value = unescape(input);
 }
 
 codeField.addEventListener('keyup', function (ev) {
@@ -3979,6 +3989,61 @@ exports.default = new _Operator2.default({
         desc: 'Generate a random floating-point value between 0 and 1.',
         body: function body(context) {
             context.push('float', Math.random());
+        }
+    }]
+});
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'z',
+    clauses: [{
+        sig: ['array', 'array'],
+        desc: 'Zip two arrays together.',
+        body: function body(context, left, right) {
+            var value = [];
+            var max = Math.min(left.value.length, right.value.length);
+
+            for (var i = 0; i < max; ++i) {
+                value.push({
+                    type: 'array',
+                    value: [left.value[i], right.value[i]]
+                });
+            }
+
+            context.push('array', value);
+        }
+    }, {
+        sig: ['array', 'array', 'block'],
+        desc: 'Zip two arrays together, combining elements with the block.',
+        body: function body(context, left, right, block) {
+            var value = [];
+            var max = Math.min(left.value.length, right.value.length);
+
+            for (var i = 0; i < max; ++i) {
+                context.push(left.value[i]);
+                context.push(right.value[i]);
+
+                context.executeBlock(block);
+                value.push(context.stack.pop());
+            }
+
+            context.push('array', value);
         }
     }]
 });
