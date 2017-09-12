@@ -3396,7 +3396,7 @@ exports.default = new _Operator2.default({
         }
     }, {
         sig: ['float'],
-        desc: 'Generate a random number from 0 to N - 1.',
+        desc: 'Generate a random integer from 0 to N - 1, inclusive.',
         body: function body(context, n) {
             var value = Math.floor(Math.random() * n.value);
             context.push('float', value);
