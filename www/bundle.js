@@ -3454,6 +3454,22 @@ exports.default = new _Operator2.default({
             context.push('float', left.value * right.value);
         }
     }, {
+        sig: ['array', 'string'],
+        desc: 'Join an array of strings by a string.',
+        body: function body(context, arr, str) {
+            var value = '';
+
+            if (arr.value.length > 0) {
+                value += arr.value[0].value;
+
+                for (var i = 1; i < arr.value.length; ++i) {
+                    value += str.value + arr.value[i].value;
+                }
+            }
+
+            context.push('string', value);
+        }
+    }, {
         sig: ['array', 'float'],
         desc: 'Repeat the input N times to form a new array.',
         body: function body(context, arr, n) {
