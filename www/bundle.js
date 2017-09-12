@@ -3582,6 +3582,10 @@ exports.default = new _Operator2.default({
         sig: [],
         desc: 'Consumes the entire input and parses it into a token.',
         body: function body(context) {
+            if (context.input.trim().length === 0) {
+                throw new Error('No input to parse from');
+            }
+
             var _parser$parse = _grammar2.default.parse(context.input),
                 _parser$parse2 = _slicedToArray(_parser$parse, 1),
                 token = _parser$parse2[0];
