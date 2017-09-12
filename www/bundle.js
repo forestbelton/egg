@@ -1606,8 +1606,8 @@ function peg$parse(input, options) {
           },
       peg$c26 = "m",
       peg$c27 = peg$literalExpectation("m", false),
-      peg$c28 = /^[acst]/,
-      peg$c29 = peg$classExpectation(["a", "c", "s", "t"], false, false),
+      peg$c28 = /^[a-zA-Z]/,
+      peg$c29 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false),
       peg$c30 = function(suffix) {
               return 'm' + suffix
           },
@@ -2665,6 +2665,10 @@ var _cos = __webpack_require__(29);
 
 var _cos2 = _interopRequireDefault(_cos);
 
+var _rand = __webpack_require__(34);
+
+var _rand2 = _interopRequireDefault(_rand);
+
 var _sin = __webpack_require__(30);
 
 var _sin2 = _interopRequireDefault(_sin);
@@ -2675,7 +2679,7 @@ var _tan2 = _interopRequireDefault(_tan);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _abs2.default, _cos2.default, _sin2.default, _tan2.default];
+var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
 
 var table = {};
 operators.forEach(function (op) {
@@ -3390,6 +3394,13 @@ exports.default = new _Operator2.default({
         body: function body(context, left, right) {
             context.push('bigint', left.value.mod(right.value));
         }
+    }, {
+        sig: ['float'],
+        desc: 'Generate a random number from 0 to N - 1.',
+        body: function body(context, n) {
+            var value = Math.floor(Math.random() * n.value);
+            context.push('float', value);
+        }
     }]
 });
 
@@ -3939,6 +3950,34 @@ document.querySelectorAll('.nav a').forEach(function (navLink) {
 });
 
 changePage();
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mR',
+    clauses: [{
+        sig: [],
+        desc: 'Generate a random floating-point value between 0 and 1.',
+        body: function body(context) {
+            context.push('float', Math.random());
+        }
+    }]
+});
 
 /***/ })
 /******/ ]);
