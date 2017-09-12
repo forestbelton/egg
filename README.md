@@ -18,12 +18,42 @@ Check it out [here](https://forestbelton.github.io/egg/).
 Examples
 ========
 
+Fibonacci (11 bytes)
+---------
+
+Try it [here](https://forestbelton.github.io/egg/?try=0O%7B%2C@c%2B%7Dr*%3B#interpreter)!
+
+This reads N from the input and computes fib(N).
+
+Compact: `0O{,@c+}r*;`
+
+Annotated:
+```
+# Push A = 0 and B = 1.
+0 O
+
+# Read in N and execute N times.
+{
+    # Duplicate B.
+    ,
+
+    # Rotate stack 123 -> 312.
+    @c
+
+    # Compute A + B.
+    +
+} r *
+
+# Drop B, leaving A.
+;
+```
+
 FizzBuzz (54 bytes)
 --------
 
 Try it [here](https://forestbelton.github.io/egg/?try="Fizz"%3AC%7BI1%2B%2C5%250%3D%3AA3%250%3D%3AB%7BCSB%5E"Buzz"%2B%7D%7BCI1%2BB%5E%7DA%5Ed%7D100*#interpreter)!
 
-Shortened: `"Fizz":C{I1+,5%0=:A3%0=:B{CSB^"Buzz"+}{CI1+B^}A^d}100*`
+Compact: `"Fizz":C{I1+,5%0=:A3%0=:B{CSB^"Buzz"+}{CI1+B^}A^d}100*`
 
 Annotated:
 ```
