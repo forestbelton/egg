@@ -48,12 +48,12 @@ Annotated:
 ;
 ```
 
-FizzBuzz (54 bytes)
+FizzBuzz (51 bytes)
 --------
 
-Try it [here](https://forestbelton.github.io/egg/?try="Fizz"%3AC%7BI1%2B%2C5%250%3D%3AA3%250%3D%3AB%7BCSB%5E"Buzz"%2B%7D%7BCI1%2BB%5E%7DA%5Ed%7D100*#interpreter)!
+Try it [here](https://forestbelton.github.io/egg/?try=%22Fizz%22%3AC%7B%7BCSB%5E%22Buzz%22%2B%7D%7BCI1+B%5E%7DI1+%2C3%250%3D%3AB5%250%3D%5Ed%7D100*#interpreter)!
 
-Compact: `"Fizz":C{I1+,5%0=:A3%0=:B{CSB^"Buzz"+}{CI1+B^}A^d}100*`
+Compact: `Fizz":C{{CSB^"Buzz"+}{CI1+B^}I1+,3%0=:B5%0=^d}100*`
 
 Annotated:
 ```
@@ -62,13 +62,6 @@ Annotated:
 
 # Execute the following block 100 times
 {
-    # Compute (I + 1) % 5 == 0 and store in A. I + 1 is duplicated
-    # with , to be used in the following computation.
-    I 1+ , 5% 0= :A
-
-    # Compute (I + 1) % 3 == 0 and store in B.
-    3% 0= :B
-
     {
         # If both A and B are true, add "Fizz" to the front.
         # Otherwise (just A is true), add the empty string.
@@ -80,11 +73,17 @@ Annotated:
         # Otherwise, display I + 1.
         C I 1+ B ^
     }
-    A
+
+    # Compute (I + 1) % 3 == 0 and store in B. I + 1 is duplicated
+    # with , to be used in the following computation.
+    I 1+ , 3% 0= :B
+
+    # Compute (I + 1) % 5 == 0 and branch off of it.
+    5% 0=
+
     ^
 
-    # Print
+    # Print.
     d
 } 100 *
-
 ```
