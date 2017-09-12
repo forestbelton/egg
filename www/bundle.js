@@ -2641,49 +2641,53 @@ var _read = __webpack_require__(23);
 
 var _read2 = _interopRequireDefault(_read);
 
-var _semicolon = __webpack_require__(24);
+var _rparen = __webpack_require__(24);
+
+var _rparen2 = _interopRequireDefault(_rparen);
+
+var _semicolon = __webpack_require__(25);
 
 var _semicolon2 = _interopRequireDefault(_semicolon);
 
-var _set = __webpack_require__(25);
+var _set = __webpack_require__(26);
 
 var _set2 = _interopRequireDefault(_set);
 
-var _subtract = __webpack_require__(26);
+var _subtract = __webpack_require__(27);
 
 var _subtract2 = _interopRequireDefault(_subtract);
 
-var _permute = __webpack_require__(27);
+var _permute = __webpack_require__(28);
 
 var _permute2 = _interopRequireDefault(_permute);
 
-var _zip = __webpack_require__(35);
+var _zip = __webpack_require__(29);
 
 var _zip2 = _interopRequireDefault(_zip);
 
-var _abs = __webpack_require__(28);
+var _abs = __webpack_require__(30);
 
 var _abs2 = _interopRequireDefault(_abs);
 
-var _cos = __webpack_require__(29);
+var _cos = __webpack_require__(31);
 
 var _cos2 = _interopRequireDefault(_cos);
 
-var _rand = __webpack_require__(34);
+var _rand = __webpack_require__(32);
 
 var _rand2 = _interopRequireDefault(_rand);
 
-var _sin = __webpack_require__(30);
+var _sin = __webpack_require__(33);
 
 var _sin2 = _interopRequireDefault(_sin);
 
-var _tan = __webpack_require__(31);
+var _tan = __webpack_require__(34);
 
 var _tan2 = _interopRequireDefault(_tan);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _subtract2.default, _zip2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
+var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _rparen2.default, _subtract2.default, _zip2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
 
 var table = {};
 operators.forEach(function (op) {
@@ -2745,9 +2749,9 @@ var _Context = __webpack_require__(6);
 
 var _Context2 = _interopRequireDefault(_Context);
 
-__webpack_require__(32);
+__webpack_require__(35);
 
-__webpack_require__(33);
+__webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3617,6 +3621,38 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _bigInteger = __webpack_require__(1);
+
+var _bigInteger2 = _interopRequireDefault(_bigInteger);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: ')',
+    clauses: [{
+        sig: ['bigint'],
+        desc: 'Increment by one.',
+        body: function body(context, x) {
+            context.push('bigint', x.value.add(_bigInteger2.default[1]));
+        }
+    }]
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _Operator = __webpack_require__(0);
 
 var _Operator2 = _interopRequireDefault(_Operator);
@@ -3633,7 +3669,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3663,7 +3699,7 @@ exports.default = function (v) {
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3697,7 +3733,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3771,230 +3807,7 @@ exports.default = function (permutation) {
 };
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'ma',
-    clauses: [{
-        sig: ['bigint'],
-        desc: 'Integer absolute value.',
-        body: function body(context, left) {
-            context.push('bigint', left.value.abs());
-        }
-    }, {
-        sig: ['float'],
-        desc: 'Floating-point absolute value.',
-        body: function body(context, left) {
-            context.push('float', Math.abs(left.value));
-        }
-    }]
-});
-
-/***/ }),
 /* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'mc',
-    clauses: [{
-        sig: ['float'],
-        desc: 'Cosine function.',
-        body: function body(context, left) {
-            context.push('float', Math.cos(left.value));
-        }
-    }]
-});
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'ms',
-    clauses: [{
-        sig: ['float'],
-        desc: 'Sine function.',
-        body: function body(context, left) {
-            context.push('float', Math.sin(left.value));
-        }
-    }]
-});
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'mt',
-    clauses: [{
-        sig: ['float'],
-        desc: 'Tangent function.',
-        body: function body(context, left) {
-            context.push('float', Math.tan(left.value));
-        }
-    }]
-});
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _operators = __webpack_require__(3);
-
-var _operators2 = _interopRequireDefault(_operators);
-
-var _variables = __webpack_require__(4);
-
-var _variables2 = _interopRequireDefault(_variables);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var variableDocs = document.querySelector('.doc-variables > tbody');
-var operatorDocs = document.querySelector('.doc-operators > tbody');
-
-Object.values(_operators2.default).forEach(function (op) {
-    var clausesDesc = op.clauses.map(function (clause) {
-        var args = clause.sig.map(function (ty) {
-            return '<pre>' + ty + '</pre>';
-        }).join(', ') || '<pre>none</pre>';
-        var desc = clause.desc || 'No description available.';
-
-        return '\n            <tr class="doc-operator">\n                <td>' + op.name + '</td>\n                <td>' + args + '</td>\n                <td>' + desc + '</td>\n            </tr>\n        ';
-    });
-
-    operatorDocs.innerHTML += clausesDesc.join('');
-});
-
-_variables2.default.forEach(function (v) {
-    variableDocs.innerHTML += '\n        <tr class="doc-variable">\n            <td>' + v.name + '</td>\n            <td>' + v.desc + '</td>\n        </tr>\n    ';
-});
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var VALID_PAGES = ['interpreter', 'docs'];
-
-function changePage(ev) {
-    if (typeof ev !== 'undefined') {
-        ev.preventDefault();
-        window.location.hash = ev.target.href.replace(/.*#/, '');
-    }
-
-    var page = ev && ev.target.href.replace(/.*#/, '') || window.location.hash && window.location.hash.replace(/.*#/, '');
-
-    if (VALID_PAGES.indexOf(page) === -1) {
-        page = VALID_PAGES[0];
-    }
-
-    var activeLink = document.querySelector('.nav .active');
-    if (activeLink !== null) {
-        activeLink.className = '';
-    }
-    document.querySelector('a[href="#' + page + '"]').className = 'active';
-
-    var activePage = document.querySelector('.page.visible');
-    if (activePage !== null) {
-        activePage.className = 'page';
-    }
-    document.getElementById(page).className = 'page visible';
-}
-
-document.querySelectorAll('.nav a').forEach(function (navLink) {
-    return navLink.addEventListener('click', changePage);
-});
-
-changePage();
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: 'mR',
-    clauses: [{
-        sig: [],
-        desc: 'Generate a random floating-point value between 0 and 1.',
-        body: function body(context) {
-            context.push('float', Math.random());
-        }
-    }]
-});
-
-/***/ }),
-/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4047,6 +3860,229 @@ exports.default = new _Operator2.default({
         }
     }]
 });
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'ma',
+    clauses: [{
+        sig: ['bigint'],
+        desc: 'Integer absolute value.',
+        body: function body(context, left) {
+            context.push('bigint', left.value.abs());
+        }
+    }, {
+        sig: ['float'],
+        desc: 'Floating-point absolute value.',
+        body: function body(context, left) {
+            context.push('float', Math.abs(left.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mc',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Cosine function.',
+        body: function body(context, left) {
+            context.push('float', Math.cos(left.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mR',
+    clauses: [{
+        sig: [],
+        desc: 'Generate a random floating-point value between 0 and 1.',
+        body: function body(context) {
+            context.push('float', Math.random());
+        }
+    }]
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'ms',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Sine function.',
+        body: function body(context, left) {
+            context.push('float', Math.sin(left.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: 'mt',
+    clauses: [{
+        sig: ['float'],
+        desc: 'Tangent function.',
+        body: function body(context, left) {
+            context.push('float', Math.tan(left.value));
+        }
+    }]
+});
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _operators = __webpack_require__(3);
+
+var _operators2 = _interopRequireDefault(_operators);
+
+var _variables = __webpack_require__(4);
+
+var _variables2 = _interopRequireDefault(_variables);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var variableDocs = document.querySelector('.doc-variables > tbody');
+var operatorDocs = document.querySelector('.doc-operators > tbody');
+
+Object.values(_operators2.default).forEach(function (op) {
+    var clausesDesc = op.clauses.map(function (clause) {
+        var args = clause.sig.map(function (ty) {
+            return '<pre>' + ty + '</pre>';
+        }).join(', ') || '<pre>none</pre>';
+        var desc = clause.desc || 'No description available.';
+
+        return '\n            <tr class="doc-operator">\n                <td>' + op.name + '</td>\n                <td>' + args + '</td>\n                <td>' + desc + '</td>\n            </tr>\n        ';
+    });
+
+    operatorDocs.innerHTML += clausesDesc.join('');
+});
+
+_variables2.default.forEach(function (v) {
+    variableDocs.innerHTML += '\n        <tr class="doc-variable">\n            <td>' + v.name + '</td>\n            <td>' + v.desc + '</td>\n        </tr>\n    ';
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var VALID_PAGES = ['interpreter', 'docs'];
+
+function changePage(ev) {
+    if (typeof ev !== 'undefined') {
+        ev.preventDefault();
+        window.location.hash = ev.target.href.replace(/.*#/, '');
+    }
+
+    var page = ev && ev.target.href.replace(/.*#/, '') || window.location.hash && window.location.hash.replace(/.*#/, '');
+
+    if (VALID_PAGES.indexOf(page) === -1) {
+        page = VALID_PAGES[0];
+    }
+
+    var activeLink = document.querySelector('.nav .active');
+    if (activeLink !== null) {
+        activeLink.className = '';
+    }
+    document.querySelector('a[href="#' + page + '"]').className = 'active';
+
+    var activePage = document.querySelector('.page.visible');
+    if (activePage !== null) {
+        activePage.className = 'page';
+    }
+    document.getElementById(page).className = 'page visible';
+}
+
+document.querySelectorAll('.nav a').forEach(function (navLink) {
+    return navLink.addEventListener('click', changePage);
+});
+
+changePage();
 
 /***/ })
 /******/ ]);
