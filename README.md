@@ -21,7 +21,7 @@ Examples
 FizzBuzz (54 bytes)
 --------
 
-Try it [here](https://forestbelton.github.io/egg/?try="Fizz"%3AC%7BI1%2B%2C5%250%3D%3AA3%250%3D%3AB%7BCSB%5E"Buzz"C%7D%7BCI1%2BB%5E%7DA%5Ed%7D100*#interpreter)!
+Try it [here](https://forestbelton.github.io/egg/?try="Fizz"%3AC%7BI1%2B%2C5%250%3D%3AA3%250%3D%3AB%7BCSB%5E"Buzz"%2B%7D%7BCI1%2BB%5E%7DA%5Ed%7D100*#interpreter)!
 
 Shortened: `"Fizz":C{I1+,5%0=:A3%0=:B{CSB^"Buzz"+}{CI1+B^}A^d}100*`
 
