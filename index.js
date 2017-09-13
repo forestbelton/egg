@@ -8,6 +8,7 @@ const codeField = document.getElementById('code')
 const inputField = document.getElementById('input')
 const outputField = document.getElementById('output')
 const byteCount = document.getElementById('byteCount')
+const permalink = document.querySelector('.permalink')
 
 const searchParams = new URLSearchParams(window.location.search)
 const code = searchParams.get('try')
@@ -42,4 +43,14 @@ inputForm.addEventListener('submit', ev => {
         outputField.style.color = '#c0392b'
         outputField.value = e.stack.toString()
     }
+})
+
+permalink.addEventListener('click', ev => {
+    ev.preventDefault()
+
+    const escapedCode = escape(codeField.value).replace(/\+/g, '%2B')
+    const escapedInput = escape(inputField.value).replace(/\+/g, '%2B')
+
+    const url = `?try=${escapedCode}&input=${escapedInput}#interpreter`
+    window.location.href = url
 })
