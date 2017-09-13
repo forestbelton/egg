@@ -35,58 +35,8 @@
                 <textarea readonly id="output" name="output"></textarea>
             </div>
         </div>
-        <div class="page" id="docs">
-            <div class="doc-heading">Types and coercion</div>
-            <hr />
-            <p>
-                Types are automatically coerced (if possible) within the
-                context of operator execution. The following types exist:
-            </p>
-            <ul class="doc-types-list">
-                <li><pre>bigint</pre> (coerces to <pre>float</pre>)</pre></li>
-                <li><pre>float</pre></li>
-                <li><pre>char</pre> (coerces to <pre>string</pre>)</li>
-                <li><pre>string</pre></li>
-                <li><pre>array</pre></li>
-            </ul>
-            <div class="doc-heading">Variables</div>
-            <hr />
-            <p>
-                Unless otherwise noted, every uppercase letter is a variable.
-                At the beginning of execution, every variable is initialized
-                to this table. If not included in the table, it is initialized
-                to 0.
-            </p>
-            <table class="doc-table doc-variables" rules="groups">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Initial value</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <div class="doc-heading">Operators</div>
-            <hr />
-            <p>
-                Operators pop operands off of the stack and perform a
-                computation, leaving 0 or more output values on the stack. If
-                the stack matches more than one possible clause for an
-                operator, the first one in listed order is chosen.
-            </p>
-            <table class="doc-table doc-operators" rules="groups">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Arguments</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div class="page" id="examples">
-        </div>
+        <div class="page" id="docs"></div>
+        <div class="page" id="examples"></div>
         <script src="bundle.js"></script>
     </body>
 </html>

@@ -10,6 +10,7 @@
     width: 100%;
     margin: 3em 0;
     text-align: left;
+    border-collapse: collapse;
 }
 
 .doc-table > thead {
@@ -35,4 +36,14 @@
 
 .doc-types-list li {
     margin-bottom: 0.25em;
+}
+
+.doc-operator-args pre:after {
+    background: #fff;
+    display: inline-block;
+    content: ", ";
+}
+
+.doc-operator-args pre:last-of-type:after {
+    content: "";
 }
