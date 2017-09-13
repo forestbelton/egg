@@ -51,6 +51,6 @@ permalink.addEventListener('click', ev => {
     const escapedCode = escape(codeField.value).replace(/\+/g, '%2B')
     const escapedInput = escape(inputField.value).replace(/\+/g, '%2B')
 
-    const url = `?try=${escapedCode}&input=${escapedInput}#interpreter`
-    window.location.href = url
+    const params = `?try=${escapedCode}&input=${escapedInput}#interpreter`
+    window.location.href = window.location.href.replace(/(\?.*)?$/, params)
 })
