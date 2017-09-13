@@ -48,12 +48,12 @@ Annotated:
 ;
 ```
 
-FizzBuzz (49 bytes)
+FizzBuzz (45 bytes)
 --------
 
-Try it [here](https://forestbelton.github.io/egg/?try=%22Fizz%22%3AC%7B%7BCSB%5E%22Buzz%22%2B%7D%7BCI%29B%5E%7DI%29%2C3%250%3D%3AB5%250%3D%5Ed%7D100*#interpreter)!
+Try it [here](https://forestbelton.github.io/egg/?try=%22Fizz%22%3AC%7B%7BCSB%5E%22Buzz%22%2B%7D%7BCI%29B%5E%7DI%29%2C3%7C%3AB5%7C%5Ed%7D100*#interpreter)!
 
-Compact: `Fizz":C{{CSB^"Buzz"+}{CI)B^}I),3%0=:B5%0=^d}100*`
+Compact: `"Fizz":C{{CSB^"Buzz"+}{CI)B^}I),3|:B5|^d}100*`
 
 Annotated:
 ```
@@ -74,12 +74,12 @@ Annotated:
         C I ) B ^
     }
 
-    # Compute (I + 1) % 3 == 0 and store in B. I + 1 is duplicated
+    # Compute if (I + 1) is divisible by 3 and store in B. I + 1 is duplicated
     # with , to be used in the following computation.
-    I ) , 3% 0= :B
+    I ) , 3| :B
 
-    # Compute (I + 1) % 5 == 0 and branch off of it.
-    5% 0=
+    # Compute if (I + 1) is divisible by 5 and branch off of it.
+    5|
 
     ^
 
