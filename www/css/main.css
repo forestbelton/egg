@@ -15,6 +15,13 @@ h1 {
     background: #bdc3c7;
 }
 
+hr {
+    margin-top: 0.5em;
+    border: 0;
+    border-bottom: 2px solid #000;
+    margin-bottom: 1em;
+}
+
 pre {
     display: inline-block;
     background: #ccc;

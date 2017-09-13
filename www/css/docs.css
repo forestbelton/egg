@@ -1,7 +1,5 @@
 .doc-heading {
-    border-bottom: 2px solid #000;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    font-weight: bold;
 }
 
 .doc-table pre {
