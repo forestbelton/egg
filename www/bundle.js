@@ -2794,6 +2794,7 @@ var codeField = document.getElementById('code');
 var inputField = document.getElementById('input');
 var outputField = document.getElementById('output');
 var byteCount = document.getElementById('byteCount');
+var permalink = document.querySelector('.permalink');
 
 var searchParams = new URLSearchParams(window.location.search);
 var code = searchParams.get('try');
@@ -2828,6 +2829,16 @@ inputForm.addEventListener('submit', function (ev) {
         outputField.style.color = '#c0392b';
         outputField.value = e.stack.toString();
     }
+});
+
+permalink.addEventListener('click', function (ev) {
+    ev.preventDefault();
+
+    var escapedCode = escape(codeField.value).replace(/\+/g, '%2B');
+    var escapedInput = escape(inputField.value).replace(/\+/g, '%2B');
+
+    var url = '?try=' + escapedCode + '&input=' + escapedInput + '#interpreter';
+    window.location.href = url;
 });
 
 /***/ }),
