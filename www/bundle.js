@@ -2613,9 +2613,9 @@ var _greaterthan = __webpack_require__(16);
 
 var _greaterthan2 = _interopRequireDefault(_greaterthan);
 
-var _hash = __webpack_require__(17);
+var _backslash = __webpack_require__(37);
 
-var _hash2 = _interopRequireDefault(_hash);
+var _backslash2 = _interopRequireDefault(_backslash);
 
 var _lessthan = __webpack_require__(18);
 
@@ -2687,7 +2687,7 @@ var _tan2 = _interopRequireDefault(_tan);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _hash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _rparen2.default, _subtract2.default, _zip2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
+var operators = [_array2.default, _caret2.default, _comma2.default, _display2.default, _divide2.default, _equals2.default, _float2.default, _greaterthan2.default, _backslash2.default, _lessthan2.default, _modulo2.default, _multiply2.default, _plus2.default, _power2.default, _read2.default, _semicolon2.default, _rparen2.default, _subtract2.default, _zip2.default, _abs2.default, _cos2.default, _rand2.default, _sin2.default, _tan2.default];
 
 var table = {};
 operators.forEach(function (op) {
@@ -3166,6 +3166,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _helper = __webpack_require__(38);
+
 var _Operator = __webpack_require__(0);
 
 var _Operator2 = _interopRequireDefault(_Operator);
@@ -3196,33 +3198,16 @@ exports.default = new _Operator2.default({
 
             context.push('array', words);
         }
-    }, {
-        sig: ['array', 'block'],
-        desc: 'Maps over array with block.',
-        body: function body(context, xs, f) {
-            var out = [];
+    }].concat((0, _helper.commutative)(['array', 'block'], 'Maps over array with block.', function (context, xs, f) {
+        var out = [];
 
-            xs.value.forEach(function (x) {
-                context.executeBlock(f, [x]);
-                out.push(context.stack.pop());
-            });
+        xs.value.forEach(function (x) {
+            context.executeBlock(f, [x]);
+            out.push(context.stack.pop());
+        });
 
-            context.push('array', out);
-        }
-    }, {
-        sig: ['block', 'array'],
-        desc: 'Maps over array with block.',
-        body: function body(context, f, xs) {
-            var out = [];
-
-            xs.value.forEach(function (x) {
-                context.executeBlock(f, [x]);
-                out.push(context.stack.pop());
-            });
-
-            context.push('array', out);
-        }
-    }]
+        context.push('array', out);
+    }))
 });
 
 /***/ }),
@@ -3321,41 +3306,7 @@ exports.default = new _Operator2.default({
 });
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Operator = __webpack_require__(0);
-
-var _Operator2 = _interopRequireDefault(_Operator);
-
-var _grammar = __webpack_require__(2);
-
-var _grammar2 = _interopRequireDefault(_grammar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _Operator2.default({
-    name: '#',
-    clauses: [{
-        sig: ['string'],
-        desc: 'Evaluates the string as code.',
-        body: function body(context, code) {
-            var value = _grammar2.default.parse(code.value);
-            var block = { type: 'block', value: value };
-
-            context.executeBlock(block);
-        }
-    }]
-});
-
-/***/ }),
+/* 17 */,
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4099,6 +4050,106 @@ document.querySelectorAll('.nav a').forEach(function (navLink) {
 });
 
 changePage();
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _bigInteger = __webpack_require__(1);
+
+var _bigInteger2 = _interopRequireDefault(_bigInteger);
+
+var _helper = __webpack_require__(38);
+
+var _Operator = __webpack_require__(0);
+
+var _Operator2 = _interopRequireDefault(_Operator);
+
+var _grammar = __webpack_require__(2);
+
+var _grammar2 = _interopRequireDefault(_grammar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _Operator2.default({
+    name: '\\',
+    clauses: (0, _helper.commutative)(['block', 'array'], 'Filters an array by a predicate.', function (context, f, arr) {
+        var value = [];
+
+        arr.value.forEach(function (x) {
+            context.executeBlock(f, [x]);
+
+            var top = context.stack.pop();
+            var p = false;
+
+            switch (top.type) {
+                case 'bigint':
+                    p = !top.value.equals((0, _bigInteger2.default)(0));
+                    break;
+
+                case 'float':
+                    p = top.value != 0;
+                    break;
+
+                case 'string':
+                    p = top.value.length > 0;
+                    break;
+            }
+
+            if (p) {
+                value.push(x);
+            }
+        });
+
+        context.push('array', value);
+    }).concat([{
+        sig: ['string'],
+        desc: 'Evaluates the string as code.',
+        body: function body(context, code) {
+            var value = _grammar2.default.parse(code.value);
+            var block = { type: 'block', value: value };
+
+            context.executeBlock(block);
+        }
+    }])
+});
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function commutative(sig, desc, _body) {
+    var reversedSig = [];
+    for (var i = sig.length - 1; i >= 0; --i) {
+        reversedSig.push(sig[i]);
+    }
+
+    return [{
+        sig: sig,
+        desc: desc,
+        body: _body
+    }, {
+        sig: reversedSig,
+        desc: desc,
+        body: function body(context, a, b) {
+            return _body(context, b, a);
+        }
+    }];
+}
+exports.commutative = commutative;
 
 /***/ })
 /******/ ]);
