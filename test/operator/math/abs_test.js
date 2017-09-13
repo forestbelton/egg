@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../../helper'
-import Context from '../../../lib/Context'
-import abs from '../../../lib/operator/math/abs'
+import Context from '../../../lib/runtime/Context'
+import abs from '../../../lib/runtime/operator/math/abs'
 
 describe('ma operator', function() {
     it('should compute absolute value for bigints', function() {

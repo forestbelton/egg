@@ -1,8 +1,8 @@
 import bigInt from 'big-integer'
 import { expect } from 'chai'
 import { term } from '../helper'
-import Context from '../../lib/Context'
-import pipe from '../../lib/operator/pipe'
+import Context from '../../lib/runtime/Context'
+import pipe from '../../lib/runtime/operator/pipe'
 
 describe('| operator', function() {
     it('should evaluate to 1 when divisible', function() {

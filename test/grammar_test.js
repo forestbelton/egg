@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import parser from '../lib/grammar.pegjs'
+import parser from '../lib/runtime/grammar.pegjs'
 
 describe('grammar', function() {
     it('should parse a character', function() {

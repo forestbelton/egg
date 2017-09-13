@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../helper'
-import Context from '../../lib/Context'
-import backslash from '../../lib/operator/backslash'
+import Context from '../../lib/runtime/Context'
+import backslash from '../../lib/runtime/operator/backslash'
 
 describe('\\ operator', function() {
     it('should evaluate code', function() {

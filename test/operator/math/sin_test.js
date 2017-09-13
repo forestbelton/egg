@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../../helper'
-import Context from '../../../lib/Context'
-import sin from '../../../lib/operator/math/sin'
+import Context from '../../../lib/runtime/Context'
+import sin from '../../../lib/runtime/operator/math/sin'
 
 describe('ms operator', function() {
     it('should compute sine', function() {
