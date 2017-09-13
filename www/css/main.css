@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 @import url('docs.css');
 @import url('interpreter.css');
+@import url('examples.css');
 
 * {
     margin: 0;
