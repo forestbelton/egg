@@ -2837,8 +2837,8 @@ permalink.addEventListener('click', function (ev) {
     var escapedCode = escape(codeField.value).replace(/\+/g, '%2B');
     var escapedInput = escape(inputField.value).replace(/\+/g, '%2B');
 
-    var url = '?try=' + escapedCode + '&input=' + escapedInput + '#interpreter';
-    window.location.href = url;
+    var params = '?try=' + escapedCode + '&input=' + escapedInput + '#interpreter';
+    window.location.href = window.location.href.replace(/(\?.*)?$/, params);
 });
 
 /***/ }),
