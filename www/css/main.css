@@ -55,8 +55,9 @@ button {
     margin-bottom: 2em;
     cursor: pointer;
     color: #fff;
-    font-size: 1.25em;
     font-weight: bold;
+    font-size: 1.25em;
+    display: inline-block;
     height: 2em;
     background: #2980b9;
     border: 0;
