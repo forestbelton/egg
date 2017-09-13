@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
     entry: './index.js',
@@ -10,7 +11,10 @@ module.exports = {
         rules: [
             {
                 test: /\.pegjs$/,
-                loader: 'pegjs-loader'
+                use: [
+                    'babel-loader',
+                    'pegjs-loader'
+                ]
             },
             {
                 test: /\.js$/,
@@ -18,5 +22,11 @@ module.exports = {
                 loader: 'babel-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.EnvironmentPlugin({
+            NODE_ENV: '"production"'
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    ]
 };
