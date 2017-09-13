@@ -4,7 +4,6 @@
 
 .section > label {
     font-weight: bold;
-    font-size: 1.25em;
     display: block;
     margin-bottom: 0.5em;
 }
@@ -14,6 +13,7 @@
     display: block;
     resize: none;
     min-height: 10em;
+    outline: none;
 }
 
 .output > textarea {
@@ -22,7 +22,7 @@
     min-height: 15em;
 }
 
-#byteCount {
+.byteCount {
     color: #bdc3c7;
     margin-top: 0.5em;
 }

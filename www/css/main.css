@@ -35,6 +35,7 @@ pre {
 
 .nav > li {
     display: inline-block;
+    margin-right: 0.5em;
 }
 
 .nav .active {
@@ -55,13 +56,19 @@ button {
     margin-bottom: 2em;
     cursor: pointer;
     color: #fff;
-    font-size: 1.25em;
     font-weight: bold;
+    font-size: 1.25em;
+    display: inline-block;
     height: 2em;
     background: #2980b9;
     border: 0;
     outline: none;
     min-width: 20em;
+    margin-right: 2em;
+}
+
+button:last-of-type {
+    margin-right: 0;
 }
 
 button:hover {
