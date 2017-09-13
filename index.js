@@ -1,7 +1,7 @@
 import Context from './lib/Context'
 
 import './lib/ui/Documentation'
-import './lib/ui/examples'
+import './lib/ui/Examples'
 import './lib/ui/router'
 
 const inputForm = document.getElementById('inputForm')
