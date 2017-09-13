@@ -1,7 +1,9 @@
-import Context from './lib/Context'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import './lib/ui/Documentation'
-import './lib/ui/Examples'
-import './lib/ui/Interpreter'
+import UI from './lib/ui/UI'
 
-import './lib/ui/router'
+ReactDOM.render(
+    <UI />,
+    document.getElementById('root')
+)

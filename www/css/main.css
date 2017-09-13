@@ -35,6 +35,7 @@ pre {
 
 .nav > li {
     display: inline-block;
+    margin-right: 0.5em;
 }
 
 .nav .active {
