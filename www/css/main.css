@@ -63,6 +63,11 @@ button {
     border: 0;
     outline: none;
     min-width: 20em;
+    margin-right: 2em;
+}
+
+button:last-of-type {
+    margin-right: 0;
 }
 
 button:hover {

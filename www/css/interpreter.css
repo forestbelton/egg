@@ -22,7 +22,7 @@
     min-height: 15em;
 }
 
-#byteCount {
+.byteCount {
     color: #bdc3c7;
     margin-top: 0.5em;
 }
