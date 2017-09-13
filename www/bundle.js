@@ -3333,6 +3333,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _bigInteger = __webpack_require__(1);
+
+var _bigInteger2 = _interopRequireDefault(_bigInteger);
+
 var _Operator = __webpack_require__(0);
 
 var _Operator2 = _interopRequireDefault(_Operator);
@@ -3345,7 +3349,21 @@ exports.default = new _Operator2.default({
         sig: ['array', 'float'],
         desc: 'Takes the first N elements from an array.',
         body: function body(context, arr, n) {
-            return context.push('array', arr.value.slice(0, n.value));
+            context.push('array', arr.value.slice(0, n.value));
+        }
+    }, {
+        sig: ['float', 'float'],
+        desc: 'Floating-point greater than comparison.',
+        body: function body(context, a, b) {
+            var value = a.value > b.value ? _bigInteger2.default[1] : _bigInteger2.default[0];
+            context.push('bigint', value);
+        }
+    }, {
+        sig: ['bigint', 'bigint'],
+        desc: 'Integer greater than comparison.',
+        body: function body(context, a, b) {
+            var value = a.value.greater(b.value) ? _bigInteger2.default[1] : _bigInteger2.default[0];
+            context.push('bigint', value);
         }
     }]
 });
@@ -3444,6 +3462,20 @@ exports.default = new _Operator2.default({
         desc: 'Drops the first N elements from an array.',
         body: function body(context, arr, n) {
             return context.push('array', arr.value.slice(n.value));
+        }
+    }, {
+        sig: ['float', 'float'],
+        desc: 'Floating-point lesser than comparison.',
+        body: function body(context, a, b) {
+            var value = a.value < b.value ? bigInt[1] : bigInt[0];
+            context.push('bigint', value);
+        }
+    }, {
+        sig: ['bigint', 'bigint'],
+        desc: 'Integer lesser than comparison.',
+        body: function body(context, a, b) {
+            var value = a.value.lesser(b.value) ? bigInt[1] : bigInt[0];
+            context.push('bigint', value);
         }
     }]
 });
