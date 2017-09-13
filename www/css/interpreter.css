@@ -13,6 +13,7 @@
     display: block;
     resize: none;
     min-height: 10em;
+    outline: none;
 }
 
 .output > textarea {
