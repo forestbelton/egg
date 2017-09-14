@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../helper'
-import Context from '../../lib/Context'
-import plus from '../../lib/operator/plus'
+import Context from '../../lib/runtime/Context'
+import plus from '../../lib/runtime/operator/plus'
 
 describe('+ operator', function() {
     it('should add two bigints', function() {

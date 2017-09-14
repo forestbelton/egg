@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../../helper'
-import Context from '../../../lib/Context'
-import tan from '../../../lib/operator/math/tan'
+import Context from '../../../lib/runtime/Context'
+import tan from '../../../lib/runtime/operator/math/tan'
 
 describe('mt operator', function() {
     it('should compute tangent', function() {

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../../helper'
-import Context from '../../../lib/Context'
-import cos from '../../../lib/operator/math/cos'
+import Context from '../../../lib/runtime/Context'
+import cos from '../../../lib/runtime/operator/math/cos'
 
 describe('mc operator', function() {
     it('should compute cosine', function() {

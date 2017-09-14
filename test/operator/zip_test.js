@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { term } from '../helper'
-import Context from '../../lib/Context'
-import zip from '../../lib/operator/zip'
+import Context from '../../lib/runtime/Context'
+import zip from '../../lib/runtime/operator/zip'
 
 describe('z operator', function() {
     it('should zip two arrays', function() {
