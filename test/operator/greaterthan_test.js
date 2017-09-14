@@ -2,10 +2,10 @@ import bigInt from 'big-integer'
 import { expect } from 'chai'
 import { term } from '../helper'
 import Context from '../../lib/runtime/Context'
-import lessthan from '../../lib/runtime/operator/lessthan'
+import gt from '../../lib/runtime/operator/greaterthan'
 
-describe('< operator', function() {
-    it('should drop n first arguments from an array', function () {
+describe('> operator', function () {
+    it('should take n first elements from an array', function () {
         const context = new Context()
         context.stack = [
             term('array', [
@@ -16,75 +16,76 @@ describe('< operator', function() {
             term('float', 2)
         ]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'array',
             value: [
-                { type: 'string', value: 'c' }
+                { type: 'string', value: 'a' },
+                { type: 'string', value: 'b' }
             ]
         }])
     })
 
-    it('should evaluate to 1 when float is less', function() {
+    it('should return 1 when float is greater', function () {
         const context = new Context()
-        context.stack = [term('float', 1), term('float', 2)]
+        context.stack = [term('float', 2), term('float', 1)]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[1]
         }])
     })
 
-    it('should evaluate to 0 when float is not less', function() {
+    it('should return 0 when float is not greater', function () {
         const context = new Context()
-        context.stack = [term('float', 1), term('float', 0)]
+        context.stack = [term('float', 2), term('float', 3)]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[0]
         }])
     })
 
-    it('should evaluate to 1 when bigint is less', function() {
+    it('should return 1 when bigint is greater', function () {
         const context = new Context()
-        context.stack = [term('bigint', bigInt[1]), term('float', bigInt[2])]
+        context.stack = [term('bigint', bigInt[2]), term('bigint', bigInt[1])]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[1]
         }])
     })
 
-    it('should evaluate to 0 when bigint is not less', function() {
+    it('should return 0 when bigint is not greater', function () {
         const context = new Context()
-        context.stack = [term('bigint', bigInt[1]), term('float', bigInt[0])]
+        context.stack = [term('bigint', bigInt[2]), term('bigint', bigInt[3])]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[0]
         }])
     })
 
-    it('should evaluate to 1 when string less than', function() {
+    it('should return 1 when string is greater', function () {
         const context = new Context()
-        context.stack = [term('string', 'a'), term('string', 'b')]
+        context.stack = [term('string', 'b'), term('string', 'a')]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[1]
         }])
     })
 
-    it('should evaluate to 0 when string not less than', function() {
+    it('should return 0 when string is not greater', function () {
         const context = new Context()
-        context.stack = [term('string', 'a'), term('string', 'A')]
+        context.stack = [term('string', 'b'), term('string', 'c')]
 
-        lessthan.execute(context)
+        gt.execute(context)
         expect(context.stack).to.deep.equal([{
             type: 'bigint',
             value: bigInt[0]
