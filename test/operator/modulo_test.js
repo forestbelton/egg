@@ -16,7 +16,7 @@ describe('% operator', function () {
         }])
     })
 
-    it('should compute a random number', function () {
+    it('should compute a number between 0 and 1', function () {
         const context = new Context()
         context.stack = [term('float', 1)]
 
