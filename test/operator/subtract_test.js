@@ -16,7 +16,7 @@ describe('- operator', function () {
         }])
     })
 
-    it('should subtract two bigints', function () {
+    it('should subtract two floats', function () {
         const context = new Context()
         context.stack = [term('float', 3), term('float', 2)]
 
