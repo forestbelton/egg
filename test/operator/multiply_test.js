@@ -97,12 +97,17 @@ describe('* operator', function () {
 
     it('should set I during block execution', function () {
         const context = new Context()
-        context.stack = [term('block', []), term('float', 3)]
+        context.stack = [term('block', [
+            term('variable', 'I'),
+            term('operator', 'd')
+        ]), term('float', 3)]
 
         multiply.execute(context)
         expect(context.env['I']).to.deep.equal({
             type: 'bigint',
             value: bigInt[2]
         })
+
+        expect(context.output).to.equal('0\n1\n2\n')
     })
 })
