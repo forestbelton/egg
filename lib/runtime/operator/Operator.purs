@@ -6,7 +6,7 @@ import Egg.Runtime.Context (Context)
 type Clause =
     { sig  :: Array Ty
     , description :: String
-    , body :: Context -> Context
+    , body :: Partial => Context -> Context
     }
 
 type Operator =
