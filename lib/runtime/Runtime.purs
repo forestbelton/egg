@@ -11,7 +11,7 @@ import Prelude ((<>), ($), (>=), (&&), (-), (==), id)
 
 import Egg.Runtime.Operator.Operator (Clause)
 import Egg.Runtime.Operator.Table (operatorTable)
-import Egg.Runtime.Context (Context, newContext, push, getOutput, getStack, getEnv)
+import Egg.Runtime.Context (Context, newContext, push)
 import Egg.Runtime.Token (Token(..), displayToken)
 import Egg.Runtime.Type (Ty, typeOf)
 
@@ -22,14 +22,14 @@ evaluate code input = output <> stack
     where tokens = parse code
           initialCtx = newContext input
           finalCtx = foldr evaluateToken initialCtx tokens
-          output = getOutput finalCtx
-          stack = foldMap displayToken $ getStack finalCtx
+          output = finalCtx.output
+          stack = foldMap displayToken $ finalCtx.stack
 
 evaluateToken :: Token -> Context -> Context
-evaluateToken (Var v) ctx = push ctx (maybe (BInt $ fromInt 0) id $ lookup v $ getEnv ctx)
+evaluateToken (Var v) ctx = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
 evaluateToken (Op name) ctx = case lookup name operatorTable of
     Nothing -> unsafeCrashWith $ "unknown operator: " <> name
-    Just op -> case head $ filter (matchingClause (getStack ctx)) op.clauses of
+    Just op -> case head $ filter (matchingClause ctx.stack) op.clauses of
         Nothing -> unsafeCrashWith $ "no matching clause for: " <> name
         Just clause -> clause.body ctx
 evaluateToken value ctx = push ctx value
