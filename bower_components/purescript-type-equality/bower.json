@@ -1,0 +1,21 @@
+{
+  "name": "purescript-type-equality",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-type-equality.git"
+  },
+  "devDependencies": {
+    "purescript-console": "^3.0.0",
+    "purescript-newtype": "^2.0.0"
+  },
+  "dependencies": {
+    "purescript-eff": "^3.1.0"
+  }
+}

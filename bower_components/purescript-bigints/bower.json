@@ -1,0 +1,31 @@
+{
+  "name": "purescript-bigints",
+  "description": "Arbitrary length integers",
+  "license": "MIT",
+  "homepage": "https://github.com/sharkdp/purescript-bigints",
+  "authors": [
+    "David Peter <mail@david-peter.de>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sharkdp/purescript-bigints.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output",
+    "test",
+    "gulpfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-maybe": "^3.0.0"
+  },
+  "devDependencies": {
+    "purescript-integers": "^3.0.0",
+    "purescript-console": "^3.0.0",
+    "purescript-assert": "^3.0.0",
+    "purescript-quickcheck": "^4.0.0"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "purescript-either",
+  "homepage": "https://github.com/purescript/purescript-either",
+  "description": "Values with two possibilities",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-either.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-foldable-traversable": "^3.0.0",
+    "purescript-prelude": "^3.0.0"
+  },
+  "version": "3.1.0",
+  "_release": "3.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.1.0",
+    "commit": "ceb6a147debe2a1b9af0732b9ee1f4a76d0c7c49"
+  },
+  "_source": "https://github.com/purescript/purescript-either.git",
+  "_target": "^3.0.0",
+  "_originalSource": "purescript-either"
+}
