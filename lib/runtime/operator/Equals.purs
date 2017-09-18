@@ -11,7 +11,7 @@ equals =
     , clauses: [
         { sig: [TBInt, TBInt]
         , description: "Integer equality."
-        , body: \ref -> pure unit
+        , body: id
         }
     ]
     }
