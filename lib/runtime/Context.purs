@@ -1,26 +1,23 @@
 module Egg.Runtime.Context where
 
-import Prelude (($))
 import Data.Array ((:), take, drop)
 import Data.Tuple (Tuple(..))
 
 import Egg.Runtime.Env (Env, defaultEnv)
-import Egg.Runtime.Stack (Stack(..))
 import Egg.Runtime.Token (Token(..))
 
-data Context = Context Env Stack String String
+data Context = Context Env (Array Token) String String
 
-newContext :: Stack -> String -> Context
+newContext :: Array Token -> String -> Context
 newContext stack input = Context defaultEnv stack input ""
 
 overStack :: forall a. (Array Token -> Tuple a (Array Token)) -> Context -> Tuple a Context
-overStack f (Context env (Stack stack) input output) = Tuple x ctx
+overStack f (Context env stack input output) = Tuple x ctx
     where (Tuple x stack') = f stack
-          ctx = Context env (Stack stack') input output
+          ctx = Context env stack' input output
 
 push :: Context -> Token -> Context
-push (Context env (Stack tokens) input output) token = Context env stack' input output
-    where stack' = Stack $ token : tokens
+push (Context env tokens input output) token = Context env (token : tokens) input output
 
 pop :: Context -> Int -> Tuple (Array Token) Context
 pop ctx n = overStack go ctx
