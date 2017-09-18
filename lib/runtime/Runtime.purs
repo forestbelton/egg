@@ -2,7 +2,7 @@ module Egg.Runtime.Runtime where
 
 import Data.Array (head, filter, length, drop, all, zip)
 import Data.BigInt (fromInt)
-import Data.Foldable (foldr, foldMap)
+import Data.Foldable (foldl, foldMap)
 import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
@@ -21,18 +21,18 @@ evaluate :: String -> String -> String
 evaluate code input = output <> stack
     where tokens = parse code
           initialCtx = newContext input
-          finalCtx = foldr evaluateToken initialCtx tokens
+          finalCtx = foldl evaluateToken initialCtx tokens
           output = finalCtx.output
           stack = foldMap displayToken $ finalCtx.stack
 
-evaluateToken :: Token -> Context -> Context
-evaluateToken (Var v) ctx = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
-evaluateToken (Op name) ctx = case lookup name operatorTable of
+evaluateToken :: Context -> Token -> Context
+evaluateToken ctx (Var v) = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
+evaluateToken ctx (Op name) = case lookup name operatorTable of
     Nothing -> unsafeCrashWith $ "unknown operator: " <> name
     Just op -> case head $ filter (matchingClause ctx.stack) op.clauses of
         Nothing -> unsafeCrashWith $ "no matching clause for: " <> name
         Just clause -> clause.body ctx
-evaluateToken value ctx = push ctx value
+evaluateToken ctx value = push ctx value
 
 matchingClause :: Array Token -> Clause -> Boolean
 matchingClause stack clause = length stack >= length clause.sig
