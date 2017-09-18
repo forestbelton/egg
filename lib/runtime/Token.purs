@@ -1,6 +1,6 @@
 module Egg.Runtime.Token where
 
-import Prelude
+import Prelude (map, show, (<>), ($))
 
 import Data.BigInt (BigInt, toString)
 import Data.Foldable (foldMap)
