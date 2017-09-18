@@ -22,4 +22,4 @@ displayToken (Str str)    = str
 displayToken (Ch ch)      = ch
 displayToken (BInt int)   = show int
 displayToken (Num num)    = show num
-displayToken (Block tokens) = "{" <> (joinWith " " (map displayToken tokens)) <> "}"
+displayToken (Block tokens) = "{" <> (joinWith " " $ map displayToken tokens) <> "}"
