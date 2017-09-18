@@ -1,12 +1,11 @@
 module Egg.Runtime.Type where
 
 import Data.Eq
-
 import Egg.Runtime.Token (Token(..))
+import Partial.Unsafe (unsafeCrashWith)
 
 data Ty
-    = TOp
-    | TArr
+    = TArr
     | TStr
     | TCh
     | TBInt
@@ -16,7 +15,8 @@ data Ty
 derive instance eqTy :: Eq Ty
 
 typeOf :: Token -> Ty
-typeOf (Op _)    = TOp
+typeOf (Op _)    = unsafeCrashWith "ops do not have a type"
+typeOf (Var _)   = unsafeCrashWith "vars do not have a type"
 typeOf (Arr _)   = TArr
 typeOf (Str _)   = TStr
 typeOf (Ch _)    = TCh

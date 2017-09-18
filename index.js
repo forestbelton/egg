@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './lib/runtime/Context.purs'
-import './lib/runtime/Token.purs'
+import UI from './lib/ui/UI'
 
 ReactDOM.render(
-    null,
+    <UI />,
     document.getElementById('root')
 )

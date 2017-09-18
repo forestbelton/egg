@@ -21,6 +21,9 @@ data Context = Context Env (Array Token) String String
 newContext :: String -> Context
 newContext input = Context defaultEnv [] input ""
 
+getEnv :: Context -> Env
+getEnv (Context env _ _ _) = env
+
 getStack :: Context -> Array Token
 getStack (Context _ stack _ _) = stack
 
