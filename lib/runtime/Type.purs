@@ -1,5 +1,7 @@
 module Egg.Runtime.Type where
 
+import Data.Eq
+
 import Egg.Runtime.Token (Token(..))
 
 data Ty
@@ -10,6 +12,8 @@ data Ty
     | TBInt
     | TNum
     | TBlock
+
+derive instance eqTy :: Eq Ty
 
 typeOf :: Token -> Ty
 typeOf (Op _)    = TOp
