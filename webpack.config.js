@@ -20,7 +20,10 @@ module.exports = {
             {
                 test: /\.purs$/,
                 exclude: /node_modules/,
-                loader: 'purs-loader'
+                loader: 'purs-loader',
+                query: {
+                    src: ['bower_components/purescript-*/src/**/*.purs', 'lib/**/*.purs']
+                }
             },
             {
                 test: /\.js$/,
