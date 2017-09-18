@@ -6,7 +6,7 @@ import Data.Tuple (Tuple(..))
 
 import Egg.Runtime.Operator.Operator (Operator)
 
-import Egg.Runtime.Operator.Equals
+import Egg.Runtime.Operator.Equals (equals)
 
 type OperatorTable = Map String Operator
 
