@@ -13,13 +13,13 @@ import Egg.Runtime.Type (Ty(..))
 equals :: Operator
 equals =
     { name: "="
-    , clauses: [
-        { sig: [TBInt, TBInt]
-        , description: "Integer equality."
-        , body: \ctx -> case pop ctx 2 of
-            Tuple [BInt a, BInt b] ctx' -> let result = fromInt $ if a == b then 1 else 0
-                in push ctx' $ BInt result
-            Tuple _ _ -> crashWith "bad match"
-        }
-    ]
+    , clauses:
+        [ { sig: [TBInt, TBInt]
+          , description: "Integer equality."
+          , body: \ctx -> case pop ctx 2 of
+              Tuple [BInt a, BInt b] ctx' -> let result = fromInt $ if a == b then 1 else 0
+                  in push ctx' $ BInt result
+              Tuple _ _ -> crashWith "bad match"
+          }
+        ]
     }
