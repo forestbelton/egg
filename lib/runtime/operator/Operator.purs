@@ -11,6 +11,7 @@ type Handler = forall eff h. STRef h Context -> Eff (st :: ST h | eff) Unit
 
 type Clause =
     { sig  :: Array Ty
+    , description :: String
     , body :: Handler
     }
 

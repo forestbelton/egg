@@ -1,9 +1,17 @@
 module Egg.Runtime.Operator.Equals where
 
-import Egg.Runtime.Operators.Operator (Operator)
+import Prelude
+
+import Egg.Runtime.Operator.Operator (Operator)
+import Egg.Runtime.Type (Ty(..))
 
 equals :: Operator
 equals =
     { name: "="
-    , clauses: []
+    , clauses: [
+        { sig: [TBInt, TBInt]
+        , description: "Integer equality."
+        , body: \ref -> pure unit
+        }
+    ]
     }
