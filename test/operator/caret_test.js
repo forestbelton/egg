@@ -29,30 +29,6 @@ describe('^ operator', function () {
         expect(context.stack).to.deep.equal([{ type: 'string', value: 'false' }])
     })
 
-    it('should push the first value if not 0', function () {
-        const context = new Context()
-        context.stack = [
-            term('string', 'true'),
-            term('string', 'false'),
-            term('float', 1)
-        ]
-
-        caret.execute(context)
-        expect(context.stack).to.deep.equal([{ type: 'string', value: 'true' }])
-    })
-
-    it('should push the second value if 0', function () {
-        const context = new Context()
-        context.stack = [
-            term('string', 'true'),
-            term('string', 'false'),
-            term('float', 0)
-        ]
-
-        caret.execute(context)
-        expect(context.stack).to.deep.equal([{ type: 'string', value: 'false' }])
-    })
-
     it('should return the n-th element in an array', function () {
         const context = new Context()
         context.stack = [
