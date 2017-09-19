@@ -9,6 +9,7 @@ import Egg.Runtime.Operator.Operator (Operator)
 
 import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
+import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Set (set)
 
 type OperatorTable = Map String Operator
@@ -18,10 +19,14 @@ operatorTable = fromFoldable $ map go operators
     where go op = Tuple op.name op
 
 operators :: Array Operator
-operators =
+operators = mainOperators <> setOperators
+
+mainOperators :: Array Operator
+mainOperators =
     [ equals
     , float
-    ] <> setOperators
+    , minus
+    ]
 
 setOperators :: Array Operator
 setOperators = map set $ toCharArray "ABCDEFG"
