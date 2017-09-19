@@ -39,9 +39,16 @@ instance embedBool :: Embed Boolean where
     lower (BInt x) = Just $ if x == fromInt 1 then true else false
     lower _        = Nothing
 
+unaryOp :: forall a. Embed a => (a -> Context -> Context) -> (Context -> Context)
+unaryOp f ctx = case pop ctx 1 of
+    Tuple [x] ctx' -> case (lower x) of
+        Just lx -> f lx ctx'
+        Nothing -> unsafeCrashWith "invalid stack values for unary operator"
+    _ -> unsafeCrashWith "found less than 1 stack value for unary operator"
+
 binaryOp :: forall a b. Embed a => Embed b => (a -> b -> Context -> Context) -> (Context -> Context)
 binaryOp f ctx = case pop ctx 2 of
     Tuple [x, y] ctx' -> case Tuple (lower x) (lower y) of
         Tuple (Just lx) (Just ly) -> f lx ly ctx'
-        _ -> unsafeCrashWith $ "invalid stack values for binary operator"
-    _ -> unsafeCrashWith $ "found less than 2 stack values for binary operator"
+        _ -> unsafeCrashWith "invalid stack values for binary operator"
+    _ -> unsafeCrashWith "found less than 2 stack values for binary operator"
