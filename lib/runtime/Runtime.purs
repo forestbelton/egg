@@ -1,13 +1,13 @@
 module Egg.Runtime.Runtime where
 
-import Data.Array (head, filter, length, drop, all, zip, reverse)
+import Data.Array (head, filter, length, drop, all, zip, reverse, foldr)
 import Data.BigInt (fromInt)
 import Data.Foldable (foldl, foldMap)
 import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude ((<>), ($), (>=), (&&), (-), (==), id, (||))
+import Prelude ((<>), ($), (>=), (&&), (-), (==), id, (||), flip)
 
 import Egg.Runtime.Operator.Operator (Clause)
 import Egg.Runtime.Operator.Table (operatorTable)
@@ -33,6 +33,9 @@ evaluateToken ctx (Op name) = case lookup name operatorTable of
         Nothing -> unsafeCrashWith $ "no matching clause for: " <> name
         Just clause -> clause.body ctx
 evaluateToken ctx value = push ctx value
+
+evaluateBlock :: Context -> Array Token -> Context
+evaluateBlock ctx tokens = foldr (flip evaluateToken) ctx tokens
 
 matchingClause :: Array Token -> Clause -> Boolean
 matchingClause stack clause = length stack >= length clause.sig
