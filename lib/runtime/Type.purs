@@ -15,6 +15,9 @@ data Ty
 
 derive instance eqTy :: Eq Ty
 
+types :: Array Ty
+types = [TAny, TArr, TStr, TCh, TBInt, TNum, TBlock]
+
 typeOf :: Token -> Ty
 typeOf (Op _)    = unsafeCrashWith "ops do not have a type"
 typeOf (Var _)   = unsafeCrashWith "vars do not have a type"
