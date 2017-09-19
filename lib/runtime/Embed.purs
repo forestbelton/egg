@@ -19,7 +19,7 @@ instance embedToken :: Embed Token where
     lift = id
     lower = Just
 
-instance embedArray :: Embed a => Embed (Array a) where
+instance embedArray :: Embed (Array Token) where
     lift xs        = Arr $ map lift xs
     lower (Arr xs) = Just $ catMaybes $ map lower xs
     lower _        = Nothing

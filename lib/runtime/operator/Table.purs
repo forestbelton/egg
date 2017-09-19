@@ -6,12 +6,12 @@ import Data.Tuple (Tuple(..))
 
 import Egg.Runtime.Operator.Operator (Operator)
 
-import Egg.Runtime.Operator.Add (add)
 import Egg.Runtime.Operator.Caret (caret)
 import Egg.Runtime.Operator.Comma (comma)
 import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
 import Egg.Runtime.Operator.Minus (minus)
+import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.Set (set)
 
@@ -26,12 +26,12 @@ operators = mainOperators <> setOperators
 
 mainOperators :: Array Operator
 mainOperators =
-    [ add
-    , caret
+    [ caret
     , comma
     , equals
     , float
     , minus
+    , plus
     , rbrace
     ]
 
