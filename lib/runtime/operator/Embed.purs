@@ -1,7 +1,7 @@
 module Egg.Runtime.Operator.Embed where
 
 import Egg.Runtime.Token
-import Data.BigInt (fromInt, toNumber)
+import Data.BigInt (BigInt, fromInt, toNumber)
 import Data.Int (floor)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
@@ -27,6 +27,11 @@ instance embedString :: Embed String where
 instance embedInt :: Embed Int where
     lift x = BInt $ fromInt x
     lower (BInt x) = Just $ floor (toNumber x)
+    lower _        = Nothing
+
+instance embedBigInt :: Embed BigInt where
+    lift           = BInt
+    lower (BInt x) = Just x
     lower _        = Nothing
 
 instance embedNum :: Embed Number where
