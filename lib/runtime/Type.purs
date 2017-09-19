@@ -23,3 +23,11 @@ typeOf (Ch _)    = TCh
 typeOf (BInt _)  = TBInt
 typeOf (Num _)   = TNum
 typeOf (Block _) = TBlock
+
+typeName :: Ty -> String
+typeName TArr   = "array"
+typeName TStr   = "string"
+typeName TCh    = "char"
+typeName TBInt  = "bigint"
+typeName TNum   = "number"
+typeName TBlock = "block"
