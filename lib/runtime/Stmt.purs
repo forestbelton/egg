@@ -9,6 +9,7 @@ import Egg.Runtime.Token (Token)
 
 data StmtF a
     = PopBInt (BigInt -> a)
+    | PopStr (String -> a)
     | Execute (Array Token) a
     | Push Token a
     | Display String a
@@ -20,6 +21,9 @@ type Stmt a = Free StmtF a
 
 popBInt :: Stmt BigInt
 popBInt = liftF $ PopBInt id
+
+popStr :: Stmt String
+popStr = liftF $ PopStr id
 
 execute :: Array Token -> Stmt Unit
 execute block = liftF $ Execute block unit
