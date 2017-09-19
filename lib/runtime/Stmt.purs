@@ -40,8 +40,8 @@ display str = liftF $ Display str unit
 read :: Stmt String
 read = liftF $ Read id
 
-set :: forall a. Embed a => String -> a -> Stmt Unit
-set v x = liftF $ Set v (lift x) unit
+set' :: forall a. Embed a => String -> a -> Stmt Unit
+set' v x = liftF $ Set v (lift x) unit
 
 error :: forall a. String -> Stmt a
 error str = liftF $ Error str
