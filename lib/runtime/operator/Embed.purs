@@ -27,7 +27,6 @@ instance embedArray :: Embed a => Embed (Array a) where
 instance embedString :: Embed String where
     lift          = Str
     lower (Str s) = Just s
-    lower (Ch c)  = Just c
     lower _       = Nothing
 
 instance embedInt :: Embed Int where
