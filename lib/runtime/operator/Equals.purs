@@ -1,5 +1,6 @@
 module Egg.Runtime.Operator.Equals where
 
+import Data.Number.Approximate (eqApproximate)
 import Prelude (($), (==))
 
 import Egg.Runtime.Context (push)
@@ -18,6 +19,10 @@ equals =
         , { sig: [TStr, TStr]
           , description: "String equality."
           , body: binaryOp $ \(x :: String) (y :: String) ctx -> push ctx $ lift (x == y)
+          }
+        , { sig: [TNum, TNum]
+          , description: "Decimal approximate equality."
+          , body: binaryOp $ \(x :: Number) (y :: Number) ctx -> push ctx $ lift $ eqApproximate x y
           }
         ]
     }
