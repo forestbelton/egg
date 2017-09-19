@@ -27,5 +27,13 @@ slash =
               ys <- sequence $ map (mapStep block) xs
               push ys
           }
+        , { sig: [TBlock, TArr]
+          , description: "Map over array with block."
+          , body: do
+              xs :: Array Token <- pop
+              ABlock block <- pop
+              ys <- sequence $ map (mapStep block) xs
+              push ys
+          }
         ]
     }
