@@ -2,7 +2,6 @@ module Egg.Runtime.Operator.Table where
 
 import Prelude (($), map, (<>))
 import Data.Map (Map, fromFoldable)
-import Data.String.Utils (toCharArray)
 import Data.Tuple (Tuple(..))
 
 import Egg.Runtime.Operator.Operator (Operator)
@@ -29,4 +28,4 @@ mainOperators =
     ]
 
 setOperators :: Array Operator
-setOperators = map set $ toCharArray "ABCDEFG"
+setOperators = map set ["A", "B", "C", "D", "E", "F", "G"]
