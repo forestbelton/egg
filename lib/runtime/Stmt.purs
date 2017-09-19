@@ -2,15 +2,14 @@ module Egg.Runtime.Stmt where
 
 import Control.Monad.Free (Free, liftF)
 import Data.BigInt (BigInt)
-import Prelude (($), Unit, unit, id)
+import Data.Maybe (Maybe(..))
+import Prelude (($), Unit, unit, id, bind, pure)
 
 import Egg.Runtime.Embed
 import Egg.Runtime.Token (Token)
 
 data StmtF a
-    = PopBInt (BigInt -> a)
-    | PopStr (String -> a)
-    | PopNum (Number -> a)
+    = Pop (Token -> a)
     | Execute (Array Token) a
     | Push Token a
     | Display String a
@@ -20,14 +19,14 @@ data StmtF a
 
 type Stmt a = Free StmtF a
 
-popBInt :: Stmt BigInt
-popBInt = liftF $ PopBInt id
+pop_ :: Stmt Token
+pop_ = liftF $ Pop id
 
-popStr :: Stmt String
-popStr = liftF $ PopStr id
-
-popNum :: Stmt Number
-popNum = liftF $ PopNum id
+pop :: forall a. Embed a => Stmt a
+pop = do token <- pop_
+         case lower token of
+            Just value -> pure value
+            _          -> error $ "unexpected value on stack"
 
 execute :: Array Token -> Stmt Unit
 execute block = liftF $ Execute block unit

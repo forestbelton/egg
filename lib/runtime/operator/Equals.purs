@@ -1,6 +1,7 @@
 module Egg.Runtime.Operator.Equals where
 
 import Egg.Runtime.Stmt
+import Data.BigInt (BigInt)
 import Data.Number.Approximate (eqApproximate)
 import Egg.Runtime.Operator.Operator (Operator)
 import Egg.Runtime.Type (Ty(..))
@@ -13,22 +14,22 @@ equals =
         [ { sig: [TBInt, TBInt]
           , description: "Integer equality."
           , body: do
-              x <- popBInt
-              y <- popBInt
+              x :: BigInt <- pop
+              y :: BigInt <- pop
               push $ x == y
           }
         , { sig: [TStr, TStr]
           , description: "String equality."
           , body: do
-              x <- popStr
-              y <- popStr
+              x :: String <- pop
+              y :: String <- pop
               push $ x == y
           }
         , { sig: [TNum, TNum]
           , description: "Decimal approximate equality."
           , body: do
-              x <- popNum
-              y <- popNum
+              x :: Number <- pop
+              y :: Number <- pop
               push $ eqApproximate x y
           }
         ]
