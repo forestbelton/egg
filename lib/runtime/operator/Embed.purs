@@ -1,22 +1,28 @@
 module Egg.Runtime.Operator.Embed where
 
 import Egg.Runtime.Token
+import Data.Array (catMaybes)
 import Data.BigInt (BigInt, fromInt, toNumber)
 import Data.Int (floor)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import Egg.Runtime.Context (Context, pop)
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude (($), map, (==))
+import Prelude (($), map, (==), id)
 
 -- Embed a native PureScript value into an egg one (or vice versa)
 class Embed a where
     lift  :: a -> Token
     lower :: Token -> Maybe a
 
+instance embedToken :: Embed Token where
+    lift = id
+    lower = Just
+
 instance embedArray :: Embed a => Embed (Array a) where
-    lift xs = Arr $ map lift xs
-    lower = unsafeCrashWith "not implemented"
+    lift xs        = Arr $ map lift xs
+    lower (Arr xs) = Just $ catMaybes $ map lower xs
+    lower _        = Nothing
 
 instance embedString :: Embed String where
     lift          = Str
