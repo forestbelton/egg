@@ -7,6 +7,7 @@ import Data.Tuple (Tuple(..))
 import Egg.Runtime.Operator.Operator (Operator)
 
 import Egg.Runtime.Operator.Equals (equals)
+import Egg.Runtime.Operator.Float (float)
 
 type OperatorTable = Map String Operator
 
@@ -17,4 +18,5 @@ operatorTable = fromFoldable $ map go operators
 operators :: Array Operator
 operators =
     [ equals
+    , float
     ]
