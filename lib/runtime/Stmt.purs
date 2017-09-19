@@ -4,6 +4,7 @@ import Control.Monad.Free (Free, liftF)
 import Data.BigInt (BigInt)
 import Prelude (($), Unit, unit, id)
 
+import Egg.Runtime.Embed
 import Egg.Runtime.Token (Token)
 
 data StmtF a
@@ -23,8 +24,8 @@ popBInt = liftF $ PopBInt id
 execute :: Array Token -> Stmt Unit
 execute block = liftF $ Execute block unit
 
-push :: Token -> Stmt Unit
-push tok = liftF $ Push tok unit
+push :: forall a. Embed a => a -> Stmt Unit
+push tok = liftF $ Push (lift tok) unit
 
 display :: String -> Stmt Unit
 display str = liftF $ Display str unit
@@ -35,5 +36,5 @@ read = liftF $ Read id
 set :: String -> Token -> Stmt Unit
 set v x = liftF $ Set v x unit
 
-error :: String -> Stmt a
-error str = Error str
+error :: forall a. String -> Stmt a
+error str = liftF $ Error str

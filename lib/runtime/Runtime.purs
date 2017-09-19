@@ -19,6 +19,10 @@ import Egg.Runtime.Type (Ty(..), typeOf)
 foreign import parse :: String -> Array Token
 
 evaluate :: String -> String -> String
+evaluate code input = ""
+
+{-
+evaluate :: String -> String -> String
 evaluate code input = output <> stack
     where tokens = parse code
           ctx = evaluateContext $ newContext input tokens
@@ -50,3 +54,4 @@ sigMatches :: Array Token -> Array Ty -> Boolean
 sigMatches stack tys = all check $ zip top tys
     where top = reverse $ take (length tys) stack
           check (Tuple token ty) = typeOf token == ty || ty == TAny
+-}

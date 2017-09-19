@@ -1,6 +1,5 @@
 module Egg.Runtime.Operator.Float where
 
-import Egg.Runtime.Operator.Embed
 import Data.BigInt (BigInt, toNumber)
 import Egg.Runtime.Context (push)
 import Egg.Runtime.Operator.Operator (Operator)
@@ -12,7 +11,7 @@ float :: Operator
 float =
     { name: "f"
     , clauses:
-        [ { sig: [TStr]
+        [{- { sig: [TStr]
           , description: "Parse a decimal value from a string."
           , body: unaryOp $ \(x :: String) ctx -> push ctx $ lift (readFloat x)
           }
@@ -20,5 +19,5 @@ float =
           , description: "Convert a bigint to its decimal representation (lossy)."
           , body: unaryOp $ \(x :: BigInt) ctx -> push ctx $ lift (toNumber x)
           }
-        ]
+        -}]
     }

@@ -11,9 +11,9 @@ rbrace :: Operator
 rbrace =
     { name: "]"
     , clauses:
-        [ { sig: []
+        [{- { sig: []
           , description: "Build array from current stack."
           , body: \ctx -> push (ctx { stack = [] }) $ Arr (reverse ctx.stack)
           }
-        ]
+        -}]
     }

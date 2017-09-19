@@ -1,4 +1,4 @@
-module Egg.Runtime.Operator.Embed where
+module Egg.Runtime.Embed where
 
 import Egg.Runtime.Token
 import Data.Array (catMaybes)

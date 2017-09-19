@@ -3,7 +3,6 @@ module Egg.Runtime.Operator.Add where
 import Data.String (joinWith)
 import Prelude (($), (+), (<>), map)
 
-import Egg.Runtime.Operator.Embed
 import Egg.Runtime.Context (push)
 import Egg.Runtime.Operator.Operator (Operator)
 import Egg.Runtime.Token (Token, displayToken)
@@ -13,7 +12,7 @@ add :: Operator
 add =
     { name: "+"
     , clauses:
-        [ { sig: [TBInt, TBInt]
+        [{- { sig: [TBInt, TBInt]
           , description: "Integer addition."
           , body: binaryOp $ \(x :: Int) (y :: Int) ctx -> push ctx $ lift (x + y)
           }
@@ -37,5 +36,5 @@ add =
           , description: "Join an array by a string separator."
           , body: binaryOp $ \(sep :: String) (xs :: Array Token) ctx -> push ctx $ lift (joinWith sep $ map displayToken xs)
         }
-        ]
+        -}]
     }
