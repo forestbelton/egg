@@ -49,12 +49,6 @@ instance embedBool :: Embed Boolean where
     lower (BInt x) = Just $ if x == fromInt 1 then true else false
     lower _        = Nothing
 
-newtype Any = Any Token
-
-instance embedAny :: Embed Any where
-    lift (Any x) = x
-    lower x = Just $ Any x
-
 newtype ABlock = ABlock (Array Token)
 
 instance embedBlock :: Embed ABlock where
