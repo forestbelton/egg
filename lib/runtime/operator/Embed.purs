@@ -64,10 +64,10 @@ unaryOp f ctx = case pop ctx 1 of
         Nothing -> unsafeCrashWith "invalid stack values for unary operator"
     _ -> unsafeCrashWith "found less than 1 stack value for unary operator"
 
-binaryOp :: forall a b. Embed a => Embed b => (a -> b -> Context -> Context) -> (Context -> Context)
+binaryOp :: forall a b. Embed a => Embed b => (b -> a -> Context -> Context) -> (Context -> Context)
 binaryOp f ctx = case pop ctx 2 of
     Tuple [x, y] ctx' -> case Tuple (lower x) (lower y) of
-        Tuple (Just lx) (Just ly) -> f lx ly ctx'
+        Tuple (Just lx) (Just ly) -> f ly lx ctx'
         _ -> unsafeCrashWith "invalid stack values for binary operator"
     _ -> unsafeCrashWith "found less than 2 stack values for binary operator"
 
