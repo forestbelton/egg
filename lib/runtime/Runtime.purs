@@ -1,14 +1,14 @@
 module Egg.Runtime.Runtime where
 
-import Data.Array (head, filter, length, drop, all, zip, reverse, foldr)
+import Data.Array (head, filter, length, take, all, zip, reverse, foldr)
 import Data.BigInt (fromInt)
-import Data.Foldable (foldl, foldMap)
+import Data.Foldable (foldMap)
 import Data.List (List(..), (:))
 import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude ((<>), ($), (>=), (&&), (-), (==), id, (||), flip)
+import Prelude ((<>), ($), (>=), (&&), (==), id, (||), flip)
 
 import Egg.Runtime.Operator.Operator (Clause)
 import Egg.Runtime.Operator.Table (operatorTable)
@@ -48,5 +48,5 @@ matchingClause stack clause = length stack >= length clause.sig
 
 sigMatches :: Array Token -> Array Ty -> Boolean
 sigMatches stack tys = all check $ zip top tys
-    where top = drop (length stack - length tys) stack
+    where top = reverse $ take (length tys) stack
           check (Tuple token ty) = typeOf token == ty || ty == TAny
