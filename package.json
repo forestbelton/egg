@@ -4,7 +4,8 @@
   "description": "A stack-based code golf language",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --compilers js:babel-register"
+    "test": "mocha --recursive --compilers js:babel-register",
+    "start": "./node_modules/.bin/webpack --watch"
   },
   "author": "Forest Belton <forest@homolo.gy>",
   "license": "MIT",

@@ -10,6 +10,7 @@ import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
 import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Set (set)
+import Egg.Runtime.Operator.Add (add)
 
 type OperatorTable = Map String Operator
 
@@ -25,6 +26,7 @@ mainOperators =
     [ equals
     , float
     , minus
+    , add
     ]
 
 setOperators :: Array Operator
