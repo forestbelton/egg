@@ -13,6 +13,7 @@ data StmtF a
     | Display String a
     | Read (String -> a)
     | Set String Token a
+    | Error String
 
 type Stmt a = Free StmtF a
 
@@ -33,3 +34,6 @@ read = liftF $ Read id
 
 set :: String -> Token -> Stmt Unit
 set v x = liftF $ Set v x unit
+
+error :: String -> Stmt a
+error str = Error str
