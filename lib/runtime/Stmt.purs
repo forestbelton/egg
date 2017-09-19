@@ -10,6 +10,7 @@ import Egg.Runtime.Token (Token)
 data StmtF a
     = PopBInt (BigInt -> a)
     | PopStr (String -> a)
+    | PopNum (Number -> a)
     | Execute (Array Token) a
     | Push Token a
     | Display String a
@@ -24,6 +25,9 @@ popBInt = liftF $ PopBInt id
 
 popStr :: Stmt String
 popStr = liftF $ PopStr id
+
+popNum :: Stmt Number
+popNum = liftF $ PopNum id
 
 execute :: Array Token -> Stmt Unit
 execute block = liftF $ Execute block unit
