@@ -1,6 +1,6 @@
 module Egg.Runtime.Runtime where
 
-import Data.Array (head, filter, length, drop, all, zip)
+import Data.Array (head, filter, length, drop, all, zip, reverse)
 import Data.BigInt (fromInt)
 import Data.Foldable (foldl, foldMap)
 import Data.Map (lookup)
@@ -23,7 +23,7 @@ evaluate code input = output <> stack
           initialCtx = newContext input
           finalCtx = foldl evaluateToken initialCtx tokens
           output = finalCtx.output
-          stack = foldMap displayToken $ finalCtx.stack
+          stack = foldMap displayToken $ reverse $ finalCtx.stack
 
 evaluateToken :: Context -> Token -> Context
 evaluateToken ctx (Var v) = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
