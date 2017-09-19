@@ -7,13 +7,13 @@ import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude ((<>), ($), (>=), (&&), (-), (==), id)
+import Prelude ((<>), ($), (>=), (&&), (-), (==), id, (||))
 
 import Egg.Runtime.Operator.Operator (Clause)
 import Egg.Runtime.Operator.Table (operatorTable)
 import Egg.Runtime.Context (Context, newContext, push)
 import Egg.Runtime.Token (Token(..), displayToken)
-import Egg.Runtime.Type (Ty, typeOf)
+import Egg.Runtime.Type (Ty(..), typeOf)
 
 foreign import parse :: String -> Array Token
 
@@ -41,4 +41,4 @@ matchingClause stack clause = length stack >= length clause.sig
 sigMatches :: Array Token -> Array Ty -> Boolean
 sigMatches stack tys = all check $ zip top tys
     where top = drop (length stack - length tys) stack
-          check (Tuple token ty) = typeOf token == ty
+          check (Tuple token ty) = typeOf token == ty || ty == TAny

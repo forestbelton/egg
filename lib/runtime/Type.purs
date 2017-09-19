@@ -5,7 +5,8 @@ import Egg.Runtime.Token (Token(..))
 import Partial.Unsafe (unsafeCrashWith)
 
 data Ty
-    = TArr
+    = TAny
+    | TArr
     | TStr
     | TCh
     | TBInt
@@ -25,6 +26,7 @@ typeOf (Num _)   = TNum
 typeOf (Block _) = TBlock
 
 typeName :: Ty -> String
+typeName TAny   = "any"
 typeName TArr   = "array"
 typeName TStr   = "string"
 typeName TCh    = "char"

@@ -44,6 +44,12 @@ instance embedBool :: Embed Boolean where
     lower (BInt x) = Just $ if x == fromInt 1 then true else false
     lower _        = Nothing
 
+newtype Any = Any Token
+
+instance embedAny :: Embed Any where
+    lift (Any x) = x
+    lower x = Just $ Any x
+
 unaryOp :: forall a. Embed a => (a -> Context -> Context) -> (Context -> Context)
 unaryOp f ctx = case pop ctx 1 of
     Tuple [x] ctx' -> case (lower x) of
