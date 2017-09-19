@@ -12,6 +12,7 @@ data StmtF a
     | Push Token a
     | Display String a
     | Read (String -> a)
+    | Set String Token a
 
 type Stmt a = Free StmtF a
 
@@ -29,3 +30,6 @@ display str = liftF $ Display str unit
 
 read :: Stmt String
 read = liftF $ Read id
+
+set :: String -> Token -> Stmt Unit
+set v x = liftF $ Set v x unit
