@@ -1,10 +1,11 @@
 module Egg.Runtime.Operator.Minus where
 
+import Data.BigInt (BigInt)
 import Data.String (replaceAll, Pattern(..), Replacement(..))
-import Prelude (($), (-))
+import Prelude (($), (-), bind)
 
-import Egg.Runtime.Context (push)
 import Egg.Runtime.Operator.Operator (Operator)
+import Egg.Runtime.Stmt
 import Egg.Runtime.Type (Ty(..))
 
 
@@ -12,17 +13,29 @@ minus :: Operator
 minus =
     { name: "-"
     , clauses:
-        [{- { sig: [TBInt, TBInt]
+        [ { sig: [TBInt, TBInt]
           , description: "Integer subtraction."
-          , body: binaryOp $ \(x :: Int) (y :: Int) ctx -> push ctx $ lift (x - y)
+          , body: do
+              y :: BigInt <- pop
+              x :: BigInt <- pop
+
+              push $ x - y
           }
         , { sig: [TNum, TNum]
           , description: "Decimal subtraction."
-          , body: binaryOp $ \(x :: Number) (y :: Number) ctx -> push ctx $ lift (x - y)
+          , body: do
+              y :: Number <- pop
+              x :: Number <- pop
+
+              push $ x - y
           }
         , { sig: [TStr, TStr]
           , description: "Remove all occurrences of the second string from the first."
-          , body: binaryOp $ \(haystack :: String) (needle :: String) ctx -> push ctx $ lift (replaceAll (Pattern needle) (Replacement "") haystack)
+          , body: do
+              needle :: String <- pop
+              haystack :: String <- pop
+
+              push $ replaceAll (Pattern needle) (Replacement "") haystack
           }
-        -}]
+        ]
     }
