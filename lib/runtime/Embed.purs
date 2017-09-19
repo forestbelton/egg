@@ -6,7 +6,6 @@ import Data.BigInt (BigInt, fromInt, toNumber)
 import Data.Int (floor)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
-import Egg.Runtime.Context (Context, pop)
 import Partial.Unsafe (unsafeCrashWith)
 import Prelude (($), map, (==), id)
 
@@ -55,24 +54,3 @@ instance embedBlock :: Embed ABlock where
     lift (ABlock block) = Block block
     lower (Block block) = Just $ ABlock block
     lower _             = Nothing
-
-unaryOp :: forall a. Embed a => (a -> Context -> Context) -> (Context -> Context)
-unaryOp f ctx = case pop ctx 1 of
-    Tuple [x] ctx' -> case (lower x) of
-        Just lx -> f lx ctx'
-        Nothing -> unsafeCrashWith "invalid stack values for unary operator"
-    _ -> unsafeCrashWith "found less than 1 stack value for unary operator"
-
-binaryOp :: forall a b. Embed a => Embed b => (b -> a -> Context -> Context) -> (Context -> Context)
-binaryOp f ctx = case pop ctx 2 of
-    Tuple [x, y] ctx' -> case Tuple (lower x) (lower y) of
-        Tuple (Just lx) (Just ly) -> f ly lx ctx'
-        _ -> unsafeCrashWith "invalid stack values for binary operator"
-    _ -> unsafeCrashWith "found less than 2 stack values for binary operator"
-
-ternaryOp :: forall a b c. Embed a => Embed b => Embed c => (c -> b -> a -> Context -> Context) -> (Context -> Context)
-ternaryOp f ctx = case pop ctx 3 of
-    Tuple [x, y, z] ctx' -> case Tuple (lower x) (Tuple (lower y) (lower z)) of
-        Tuple (Just lx) (Tuple (Just ly) (Just lz)) -> f lz ly lx ctx'
-        _ -> unsafeCrashWith "invalid stack values for ternary operator"
-    _ -> unsafeCrashWith "found less than 3 stack values for ternary operator"

@@ -1,27 +1,59 @@
 module Egg.Runtime.Runtime where
 
-import Data.Array (head, filter, length, take, all, zip, reverse, foldr)
+import Control.Monad.State
+import Control.Monad.Free
+import Data.Array (head, tail, filter, length, take, all, zip, reverse, foldr)
 import Data.BigInt (fromInt)
 import Data.Foldable (foldMap)
-import Data.List (List(..), (:))
+import Data.List (List(..), (:), fromFoldable)
 import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
+import Data.NaturalTransformation
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude ((<>), ($), (>=), (&&), (==), id, (||), flip)
+import Prelude ((<>), ($), (>=), (&&), (==), id, (||), flip, bind, discard)
 
+import Egg.Runtime.Env (Env, defaultEnv)
 import Egg.Runtime.Operator.Operator (Clause)
-import Egg.Runtime.Operator.Table (operatorTable)
-import Egg.Runtime.Context (Context, newContext, push)
+import Egg.Runtime.Operator.Table (findMatchingClause)
+import Egg.Runtime.Stmt
 import Egg.Runtime.Token (Token(..), displayToken)
 import Egg.Runtime.Type (Ty(..), typeOf)
 
 foreign import parse :: String -> Array Token
 
 evaluate :: String -> String -> String
-evaluate code input = ""
+evaluate _ _ = ""
 
 {-
+type Context =
+    { env :: Env
+    , stack :: Array Token
+    , tokens :: List Token
+    , input :: String
+    , output :: String
+    }
+
+newContext :: String -> Array Token -> Context
+newContext input tokens = { env: defaultEnv, stack: [], input: input, tokens: fromFoldable tokens, output: "" }
+
+evaluate :: String -> String -> String
+evaluate code input = finalCtx.output
+    where initialCtx = newContext input (parse code)
+          finalCtx = execState (foldFree evaluateStmt) initialCtx
+          go ctx stmt =
+
+evaluateToken :: Context -> Token -> Context
+evaluateToken ctx (Var v)
+
+evaluateStmt :: StmtF ~> State Context
+evaluateStmt (Pop x next) = do
+    ctx <- get
+    put $ ctx { stack = tail ctx.stack }
+    case head ctx.stack of
+        Just token -> pure $ next token
+        Nothing    -> unsafeCrashWith "tried to pop from empty stack"
+
 evaluate :: String -> String -> String
 evaluate code input = output <> stack
     where tokens = parse code
@@ -36,22 +68,11 @@ evaluateContext ctx = case ctx.tokens of
 
 evaluateToken :: Context -> Token -> Context
 evaluateToken ctx (Var v) = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
-evaluateToken ctx (Op name) = case lookup name operatorTable of
-    Nothing -> unsafeCrashWith $ "unknown operator: " <> name
-    Just op -> case head $ filter (matchingClause ctx.stack) op.clauses of
-        Nothing -> unsafeCrashWith $ "no matching clause for: " <> name
-        Just clause -> clause.body ctx
+evaluateToken ctx (Op name) =
 evaluateToken ctx value = push ctx value
 
 evaluateBlock :: Context -> Array Token -> Context
 evaluateBlock ctx tokens = foldr (flip evaluateToken) ctx tokens
 
-matchingClause :: Array Token -> Clause -> Boolean
-matchingClause stack clause = length stack >= length clause.sig
-    && sigMatches stack clause.sig
 
-sigMatches :: Array Token -> Array Ty -> Boolean
-sigMatches stack tys = all check $ zip top tys
-    where top = reverse $ take (length tys) stack
-          check (Tuple token ty) = typeOf token == ty || ty == TAny
 -}
