@@ -1,78 +1,82 @@
 module Egg.Runtime.Runtime where
 
-import Control.Monad.State
-import Control.Monad.Free
-import Data.Array (head, tail, filter, length, take, all, zip, reverse, foldr)
-import Data.BigInt (fromInt)
-import Data.Foldable (foldMap)
-import Data.List (List(..), (:), fromFoldable)
-import Data.Map (lookup)
+import Control.Monad.State (State, execState, get, put)
+import Control.Monad.Free (foldFree)
+import Data.Array (foldr, head, tail, (:))
+import Data.Map (lookup, insert)
 import Data.Maybe (Maybe(..), maybe)
-import Data.NaturalTransformation
-import Data.Tuple (Tuple(..))
+import Data.NaturalTransformation (type (~>))
+import Data.String (null)
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude ((<>), ($), (>=), (&&), (==), id, (||), flip, bind, discard)
+import Prelude (Unit, bind, discard, pure, ($), (<>), id, flip)
 
+import Egg.Runtime.Embed (lift)
 import Egg.Runtime.Env (Env, defaultEnv)
-import Egg.Runtime.Operator.Operator (Clause)
 import Egg.Runtime.Operator.Table (findMatchingClause)
-import Egg.Runtime.Stmt
-import Egg.Runtime.Token (Token(..), displayToken)
-import Egg.Runtime.Type (Ty(..), typeOf)
+import Egg.Runtime.Stmt (Stmt, StmtF(..), get', push)
+import Egg.Runtime.Token (Token(..))
 
 foreign import parse :: String -> Array Token
 
 evaluate :: String -> String -> String
 evaluate _ _ = ""
 
-{-
 type Context =
     { env :: Env
     , stack :: Array Token
-    , tokens :: List Token
     , input :: String
     , output :: String
     }
 
 newContext :: String -> Array Token -> Context
-newContext input tokens = { env: defaultEnv, stack: [], input: input, tokens: fromFoldable tokens, output: "" }
-
-evaluate :: String -> String -> String
-evaluate code input = finalCtx.output
-    where initialCtx = newContext input (parse code)
-          finalCtx = execState (foldFree evaluateStmt) initialCtx
-          go ctx stmt =
+newContext input tokens =
+    { env: defaultEnv
+    , stack: []
+    , input: input
+    , output: ""
+    }
 
 evaluateToken :: Context -> Token -> Context
-evaluateToken ctx (Var v)
+evaluateToken ctx (Var v)   = execStmt ctx $ do
+    x :: Token <- get' v
+    push x
+evaluateToken ctx (Op name) = execStmt ctx $ findMatchingClause ctx.stack name
+evaluateToken ctx value     = ctx { stack = (value : ctx.stack) }
+
+execStmt :: Context -> Stmt Unit -> Context
+execStmt ctx stmt = execState (foldFree evaluateStmt stmt) ctx
 
 evaluateStmt :: StmtF ~> State Context
-evaluateStmt (Pop x next) = do
+evaluateStmt (Pop f) = do
     ctx <- get
-    put $ ctx { stack = tail ctx.stack }
+    put $ ctx { stack = maybe [] id (tail ctx.stack) }
     case head ctx.stack of
-        Just token -> pure $ next token
+        Just token -> pure $ f token
         Nothing    -> unsafeCrashWith "tried to pop from empty stack"
-
-evaluate :: String -> String -> String
-evaluate code input = output <> stack
-    where tokens = parse code
-          ctx = evaluateContext $ newContext input tokens
-          output = ctx.output
-          stack = foldMap displayToken $ reverse $ ctx.stack
-
-evaluateContext :: Context -> Context
-evaluateContext ctx = case ctx.tokens of
-    Nil           -> ctx
-    (head : tail) -> evaluateContext $ evaluateToken (ctx { tokens = tail }) head
-
-evaluateToken :: Context -> Token -> Context
-evaluateToken ctx (Var v) = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
-evaluateToken ctx (Op name) =
-evaluateToken ctx value = push ctx value
-
-evaluateBlock :: Context -> Array Token -> Context
-evaluateBlock ctx tokens = foldr (flip evaluateToken) ctx tokens
-
-
--}
+evaluateStmt (Execute block next) = do
+    ctx <- get
+    put $ foldr (flip evaluateToken) ctx block
+    pure next
+evaluateStmt (Push x next) = do
+    ctx <- get
+    put $ ctx { stack = (x : ctx.stack) }
+    pure next
+evaluateStmt (Display s next) = do
+    ctx <- get
+    put $ ctx { output = ctx.output <> s }
+    pure next
+evaluateStmt (Read f) = do
+    ctx <- get
+    put $ ctx { input = "" }
+    if null ctx.output
+        then unsafeCrashWith "no input to read"
+        else pure $ f ctx.output
+evaluateStmt (Set v x next) = do
+    ctx <- get
+    put $ ctx { env = insert v x ctx.env }
+    pure next
+evaluateStmt (Get v f) = do
+    ctx <- get
+    let x = maybe (lift 0) id $ lookup v ctx.env
+    pure $ f x
+evaluateStmt (Error msg) = unsafeCrashWith msg
