@@ -15,16 +15,16 @@
     "tests"
   ],
   "dependencies": {
-    "purescript-bigints": "^3.1.0",
-    "purescript-lists": "^4.10.0",
-    "purescript-foldable-traversable": "^3.6.0",
-    "purescript-strings": "^3.3.1",
-    "purescript-arrays": "^4.2.0",
-    "purescript-tuples": "^4.1.0",
-    "purescript-maps": "^3.5.2",
-    "purescript-partial": "^1.2.1",
-    "purescript-integers": "^3.1.0",
-    "purescript-numbers": "^5.0.0",
-    "purescript-free": "^4.1.0"
+    "purescript-bigints": "3.1.0",
+    "purescript-lists": "4.10.0",
+    "purescript-foldable-traversable": "3.6.0",
+    "purescript-strings": "3.3.1",
+    "purescript-arrays": "4.2.0",
+    "purescript-tuples": "4.1.0",
+    "purescript-maps": "3.5.2",
+    "purescript-partial": "1.2.1",
+    "purescript-integers": "3.1.0",
+    "purescript-numbers": "5.0.0",
+    "purescript-free": "4.1.0"
   }
 }
