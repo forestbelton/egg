@@ -11,6 +11,7 @@ import Egg.Runtime.Operator.Comma (comma)
 import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
 import Egg.Runtime.Operator.Minus (minus)
+import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.Set (set)
 import Egg.Runtime.Operator.Add (add)
 
@@ -30,7 +31,7 @@ mainOperators =
     , equals
     , float
     , minus
-    , add
+    , rbrace
     ]
 
 setOperators :: Array Operator
