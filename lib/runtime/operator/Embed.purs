@@ -70,3 +70,10 @@ binaryOp f ctx = case pop ctx 2 of
         Tuple (Just lx) (Just ly) -> f lx ly ctx'
         _ -> unsafeCrashWith "invalid stack values for binary operator"
     _ -> unsafeCrashWith "found less than 2 stack values for binary operator"
+
+ternaryOp :: forall a b c. Embed a => Embed b => Embed c => (c -> b -> a -> Context -> Context) -> (Context -> Context)
+ternaryOp f ctx = case pop ctx 3 of
+    Tuple [x, y, z] ctx' -> case Tuple (lower x) (Tuple (lower y) (lower z)) of
+        Tuple (Just lx) (Tuple (Just ly) (Just lz)) -> f lz ly lx ctx'
+        _ -> unsafeCrashWith "invalid stack values for ternary operator"
+    _ -> unsafeCrashWith "found less than 3 stack values for ternary operator"
