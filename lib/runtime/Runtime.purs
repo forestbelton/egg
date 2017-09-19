@@ -3,6 +3,7 @@ module Egg.Runtime.Runtime where
 import Data.Array (head, filter, length, drop, all, zip, reverse, foldr)
 import Data.BigInt (fromInt)
 import Data.Foldable (foldl, foldMap)
+import Data.List (List(..), (:))
 import Data.Map (lookup)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tuple (Tuple(..))
@@ -20,10 +21,14 @@ foreign import parse :: String -> Array Token
 evaluate :: String -> String -> String
 evaluate code input = output <> stack
     where tokens = parse code
-          initialCtx = newContext input
-          finalCtx = foldl evaluateToken initialCtx tokens
-          output = finalCtx.output
-          stack = foldMap displayToken $ reverse $ finalCtx.stack
+          ctx = evaluateContext $ newContext input tokens
+          output = ctx.output
+          stack = foldMap displayToken $ reverse $ ctx.stack
+
+evaluateContext :: Context -> Context
+evaluateContext ctx = case ctx.tokens of
+    Nil           -> ctx
+    (head : tail) -> evaluateContext $ evaluateToken (ctx { tokens = tail }) head
 
 evaluateToken :: Context -> Token -> Context
 evaluateToken ctx (Var v) = push ctx (maybe (BInt $ fromInt 0) id $ lookup v ctx.env)
