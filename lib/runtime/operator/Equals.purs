@@ -15,5 +15,9 @@ equals =
           , description: "Integer equality."
           , body: binaryOp $ \(x :: Int) (y :: Int) ctx -> push ctx $ lift (x == y)
           }
+        , { sig: [TStr, TStr]
+          , description: "String equality."
+          , body: binaryOp $ \(x :: String) (y :: String) ctx -> push ctx $ lift (x == y)
+          }
         ]
     }
