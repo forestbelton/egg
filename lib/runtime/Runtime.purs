@@ -2,24 +2,31 @@ module Egg.Runtime.Runtime where
 
 import Control.Monad.State (State, execState, get, put)
 import Control.Monad.Free (foldFree)
-import Data.Array (foldr, head, tail, (:))
+import Data.Array (foldl, head, tail, (:), reverse)
 import Data.Map (lookup, insert)
 import Data.Maybe (Maybe(..), maybe)
 import Data.NaturalTransformation (type (~>))
-import Data.String (null)
+import Data.String (null, joinWith)
 import Partial.Unsafe (unsafeCrashWith)
-import Prelude (Unit, bind, discard, pure, ($), (<>), id, flip)
+import Prelude (Unit, bind, discard, pure, ($), (<>), id, map)
 
 import Egg.Runtime.Embed (lift)
 import Egg.Runtime.Env (Env, defaultEnv)
 import Egg.Runtime.Operator.Table (findMatchingClause)
 import Egg.Runtime.Stmt (Stmt, StmtF(..), get', push)
-import Egg.Runtime.Token (Token(..))
+import Egg.Runtime.Token (Token(..), displayToken)
 
 foreign import parse :: String -> Array Token
 
 evaluate :: String -> String -> String
-evaluate _ _ = ""
+evaluate code input = gatherOutput finalCtx
+    where tokens = parse code
+          initialCtx = newContext input
+          finalCtx = foldl evaluateToken initialCtx $ tokens
+
+gatherOutput :: Context -> String
+gatherOutput ctx = ctx.output <> tokens
+    where tokens = joinWith "" $ map displayToken $ reverse ctx.stack
 
 type Context =
     { env :: Env
@@ -28,8 +35,8 @@ type Context =
     , output :: String
     }
 
-newContext :: String -> Array Token -> Context
-newContext input tokens =
+newContext :: String -> Context
+newContext input =
     { env: defaultEnv
     , stack: []
     , input: input
@@ -55,7 +62,7 @@ evaluateStmt (Pop f) = do
         Nothing    -> unsafeCrashWith "tried to pop from empty stack"
 evaluateStmt (Execute block next) = do
     ctx <- get
-    put $ foldr (flip evaluateToken) ctx block
+    put $ foldl evaluateToken ctx block
     pure next
 evaluateStmt (Push x next) = do
     ctx <- get
