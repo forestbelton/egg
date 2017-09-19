@@ -1,17 +1,22 @@
 module Egg.Runtime.Operator.Comma where
 
-import Egg.Runtime.Context (push)
+import Prelude (bind, discard)
+
 import Egg.Runtime.Operator.Operator (Operator)
+import Egg.Runtime.Stmt
+import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..))
-import Prelude (($))
 
 comma :: Operator
 comma =
     { name: ","
     , clauses:
-        [{- { sig: [TAny]
+        [ { sig: [TAny]
           , description: "Duplicate the top value of the stack."
-          , body: unaryOp $ \(Any x) ctx -> push (push ctx x) x
+          , body: do
+              x :: Token <- pop
+              push x
+              push x
           }
-        -}]
+        ]
     }
