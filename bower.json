@@ -24,6 +24,7 @@
     "purescript-maps": "^3.5.2",
     "purescript-partial": "^1.2.1",
     "purescript-integers": "^3.1.0",
-    "purescript-numbers": "^5.0.0"
+    "purescript-numbers": "^5.0.0",
+    "purescript-free": "^4.1.0"
   }
 }
