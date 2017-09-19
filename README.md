@@ -14,3 +14,16 @@ Properties
 * Implicit coercion between compatible types.
 
 For a web interpreter and documentation/examples, visit the language [homepage](https://forestbelton.github.io/egg/).
+
+How to build
+------------
+
+Make sure you have [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/en/) and [Bower](https://bower.io/). In the project directory, run:
+
+```
+$ yarn
+$ bower install
+$ npm start
+```
+
+You may then open `www/index.html` to see the egg UI.
