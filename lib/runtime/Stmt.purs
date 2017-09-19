@@ -10,6 +10,7 @@ import Egg.Runtime.Token (Token)
 
 data StmtF a
     = Pop (Token -> a)
+    | Clear (Array Token -> a)
     | Execute (Array Token) a
     | Push Token a
     | Display String a
@@ -28,6 +29,9 @@ pop = do token <- pop_
          case lower token of
             Just value -> pure value
             _          -> error $ "unexpected value on stack"
+
+clear :: Stmt (Array Token)
+clear = liftF $ Clear id
 
 execute :: Array Token -> Stmt Unit
 execute block = liftF $ Execute block unit

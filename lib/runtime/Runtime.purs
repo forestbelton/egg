@@ -60,6 +60,10 @@ evaluateStmt (Pop f) = do
     case head ctx.stack of
         Just token -> pure $ f token
         Nothing    -> unsafeCrashWith "tried to pop from empty stack"
+evaluateStmt (Clear f) = do
+    ctx <- get
+    put $ ctx { stack = [] }
+    pure $ f ctx.stack
 evaluateStmt (Execute block next) = do
     ctx <- get
     put $ foldl evaluateToken ctx block
