@@ -1,11 +1,13 @@
 module Egg.Runtime.Operator.Add where
 
+import Data.String (joinWith)
+import Prelude (($), (+), (<>), map)
+
 import Egg.Runtime.Operator.Embed
 import Egg.Runtime.Context (push)
 import Egg.Runtime.Operator.Operator (Operator)
-import Egg.Runtime.Token (Token)
+import Egg.Runtime.Token (Token, displayToken)
 import Egg.Runtime.Type (Ty(..))
-import Prelude (($), (+), (<>))
 
 add :: Operator
 add =
@@ -27,5 +29,13 @@ add =
           , description: "Array concatenation."
           , body: binaryOp $ \(xs :: Array Token) (ys :: Array Token) ctx -> push ctx $ lift (xs <> ys)
           }
+        , { sig: [TArr, TStr]
+          , description: "Join an array by a string separator."
+          , body: binaryOp $ \(xs :: Array Token) (sep :: String) ctx -> push ctx $ lift (joinWith sep $ map displayToken xs)
+        }
+        , { sig: [TStr, TArr]
+          , description: "Join an array by a string separator."
+          , body: binaryOp $ \(sep :: String) (xs :: Array Token) ctx -> push ctx $ lift (joinWith sep $ map displayToken xs)
+        }
         ]
     }
