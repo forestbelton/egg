@@ -12,7 +12,7 @@ rbrace =
     { name: "]"
     , clauses:
         [ { sig: []
-          , description: "Builds array from current stack."
+          , description: "Build array from current stack."
           , body: \ctx -> push (ctx { stack = [] }) $ Arr (reverse ctx.stack)
           }
         ]

@@ -13,11 +13,11 @@ float =
     { name: "f"
     , clauses:
         [ { sig: [TStr]
-          , description: "Parses a decimal value from a string."
+          , description: "Parse a decimal value from a string."
           , body: unaryOp $ \(x :: String) ctx -> push ctx $ lift (readFloat x)
           }
         , { sig: [TBInt]
-          , description: "Converts a bigint to its decimal representation (lossy)."
+          , description: "Convert a bigint to its decimal representation (lossy)."
           , body: unaryOp $ \(x :: BigInt) ctx -> push ctx $ lift (toNumber x)
           }
         ]
