@@ -50,6 +50,13 @@ instance embedAny :: Embed Any where
     lift (Any x) = x
     lower x = Just $ Any x
 
+newtype ABlock = ABlock (Array Token)
+
+instance embedBlock :: Embed ABlock where
+    lift (ABlock block) = Block block
+    lower (Block block) = Just $ ABlock block
+    lower _             = Nothing
+
 unaryOp :: forall a. Embed a => (a -> Context -> Context) -> (Context -> Context)
 unaryOp f ctx = case pop ctx 1 of
     Tuple [x] ctx' -> case (lower x) of
