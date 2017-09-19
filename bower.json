@@ -23,7 +23,6 @@
     "purescript-tuples": "^4.1.0",
     "purescript-maps": "^3.5.2",
     "purescript-partial": "^1.2.1",
-    "purescript-integers": "^3.1.0",
-    "purescript-stringutils": "^0.0.6"
+    "purescript-integers": "^3.1.0"
   }
 }
