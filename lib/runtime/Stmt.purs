@@ -3,7 +3,7 @@ module Egg.Runtime.Stmt where
 import Control.Monad.Free (Free, liftF)
 import Data.BigInt (BigInt)
 import Data.Maybe (Maybe(..))
-import Prelude (($), Unit, unit, id, bind, pure)
+import Prelude (($), (<>), Unit, unit, id, bind, pure)
 
 import Egg.Runtime.Embed
 import Egg.Runtime.Token (Token)
@@ -15,6 +15,7 @@ data StmtF a
     | Display String a
     | Read (String -> a)
     | Set String Token a
+    | Get String (Token -> a)
     | Error String
 
 type Stmt a = Free StmtF a
@@ -42,6 +43,13 @@ read = liftF $ Read id
 
 set' :: forall a. Embed a => String -> a -> Stmt Unit
 set' v x = liftF $ Set v (lift x) unit
+
+get' :: forall a. Embed a => String -> Stmt a
+get' v = do
+    x <- liftF $ Get v id
+    case lower x of
+        Nothing -> error $ "variable " <> v <> " has wrong type"
+        Just x  -> pure x
 
 error :: forall a. String -> Stmt a
 error str = liftF $ Error str
