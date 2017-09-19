@@ -22,6 +22,7 @@ import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.Set (set)
+import Egg.Runtime.Operator.Slash (slash)
 
 type OperatorTable = Map String Operator
 
@@ -41,6 +42,7 @@ mainOperators =
     , minus
     , plus
     , rbrace
+    , slash
     ]
 
 setOperators :: Array Operator
