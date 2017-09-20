@@ -9,6 +9,9 @@ import Egg.Runtime.Stmt
 import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..))
 
+mapDesc :: String
+mapDesc = "Map over array with block."
+
 mapStep :: Array Token -> Token -> Stmt Token
 mapStep block tok = do
     push tok
@@ -20,7 +23,7 @@ slash =
     { name: "/"
     , clauses:
         [ { sig: [TArr, TBlock]
-          , description: "Map over array with block."
+          , description: mapDesc
           , body: do
               ABlock block <- pop
               xs :: Array Token <- pop
@@ -28,7 +31,7 @@ slash =
               push ys
           }
         , { sig: [TBlock, TArr]
-          , description: "Map over array with block."
+          , description: mapDesc
           , body: do
               xs :: Array Token <- pop
               ABlock block <- pop
