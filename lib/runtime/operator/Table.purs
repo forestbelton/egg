@@ -25,6 +25,7 @@ import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.Read (_read)
+import Egg.Runtime.Operator.Rotate (rotate)
 import Egg.Runtime.Operator.RParen (rparen)
 import Egg.Runtime.Operator.Set (set)
 import Egg.Runtime.Operator.Semicolon (semi)
@@ -38,7 +39,7 @@ operatorTable = fromFoldable $ map go operators
     where go op = Tuple op.name op
 
 operators :: Array Operator
-operators = mainOperators <> setOperators
+operators = mainOperators <> setOperators <> rotateOperators
 
 mainOperators :: Array Operator
 mainOperators =
@@ -61,6 +62,9 @@ mainOperators =
 
 setOperators :: Array Operator
 setOperators = map set ["A", "B", "C", "D", "E", "F", "G"]
+
+rotateOperators :: Array Operator
+rotateOperators = map rotate ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"]
 
 findMatchingClause :: Array Token -> String -> Stmt Unit
 findMatchingClause stack name = case lookup name operatorTable of
