@@ -79,9 +79,9 @@ evaluateStmt (Display s next) = do
 evaluateStmt (Read f) = do
     ctx <- get
     put $ ctx { input = "" }
-    if null ctx.output
+    if null ctx.input
         then unsafeCrashWith "no input to read"
-        else pure $ f ctx.output
+        else pure $ f ctx.input
 evaluateStmt (Set v x next) = do
     ctx <- get
     put $ ctx { env = insert v x ctx.env }
