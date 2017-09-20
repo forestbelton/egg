@@ -25,6 +25,7 @@ import Egg.Runtime.Operator.LAngle (langle)
 import Egg.Runtime.Operator.LParen (lparen)
 import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Plus (plus)
+import Egg.Runtime.Operator.RAngle (rangle)
 import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.Read (_read)
 import Egg.Runtime.Operator.Rotate (rotate)
@@ -56,6 +57,7 @@ mainOperators =
     , lparen
     , minus
     , plus
+    , rangle
     , rbrace
     , _read
     , rparen
