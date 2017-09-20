@@ -4,6 +4,7 @@ import Egg.Runtime.Stmt
 import Data.BigInt (BigInt)
 import Data.Number.Approximate (eqApproximate)
 import Egg.Runtime.Operator.Operator (Operator)
+import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..))
 import Prelude (($), (==), bind)
 
@@ -32,5 +33,12 @@ equals =
               y :: Number <- pop
               push $ eqApproximate x y
           }
+        , { sig: [TArr, TArr]
+          , description: "Array deep equality."
+          , body: do
+              xs :: Array Token <- pop
+              ys :: Array Token <- pop
+              push $ xs == ys
+        }
         ]
     }
