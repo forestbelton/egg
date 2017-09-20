@@ -1,13 +1,15 @@
 module Egg.Runtime.Operator.Asterisk where
 
+import Egg.Runtime.Stmt
+
+import Data.Array (replicate)
 import Data.BigInt (BigInt, toNumber)
 import Data.Enum (enumFromTo)
-import Data.Foldable (sequence_)
+import Data.Foldable (sequence_, fold)
 import Data.Int (floor)
 import Prelude (($), (-), (*), bind, discard, map, Unit)
 
 import Egg.Runtime.Embed (ABlock(..))
-import Egg.Runtime.Stmt
 import Egg.Runtime.Operator.Operator (Operator)
 import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..))
@@ -34,6 +36,34 @@ asterisk =
               y :: Number <- pop
               x :: Number <- pop
               push $ x * y
+          }
+        , { sig: [TStr, TBInt]
+          , description: "Create a new string from N copies of a string."
+          , body: do
+              n :: Int <- pop
+              s :: String <- pop
+              push $ fold $ replicate n s
+          }
+        , { sig: [TStr, TNum]
+          , description: "Create a new string from N copies of a string."
+          , body: do
+              n :: Number <- pop
+              s :: String <- pop
+              push $ fold $ replicate (floor n) s
+          }
+        , { sig: [TAny, TBInt]
+          , description: "Create a new array from N copies of an array."
+          , body: do
+              n :: Int <- pop
+              s :: Token <- pop
+              push $ replicate n s
+          }
+        , { sig: [TAny, TNum]
+          , description: "Create a new array from N copies of an array."
+          , body: do
+              n :: Number <- pop
+              s :: Token <- pop
+              push $ replicate (floor n) s
           }
         , { sig: [TBlock, TBInt]
           , description: "Execute block N times. I is set to the number of previously executed blocks."
