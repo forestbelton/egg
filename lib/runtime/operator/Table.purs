@@ -14,6 +14,7 @@ import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..), typeOf)
 import Egg.Runtime.Operator.Operator (Operator, Clause)
 
+import Egg.Runtime.Operator.Asterisk (asterisk)
 import Egg.Runtime.Operator.Caret (caret)
 import Egg.Runtime.Operator.Comma (comma)
 import Egg.Runtime.Operator.Display (display)
@@ -37,7 +38,8 @@ operators = mainOperators <> setOperators
 
 mainOperators :: Array Operator
 mainOperators =
-    [ caret
+    [ asterisk
+    , caret
     , comma
     , display
     , equals

@@ -26,6 +26,7 @@
     "purescript-integers": "3.1.0",
     "purescript-numbers": "5.0.0",
     "purescript-free": "4.1.0",
-    "purescript-transformers": "3.4.0"
+    "purescript-transformers": "3.4.0",
+    "purescript-enums": "^3.2.1"
   }
 }
