@@ -32,7 +32,7 @@ plus =
           , body: do
               x :: String <- pop
               y :: String <- pop
-              push $ x <> y
+              push $ y <> x
           }
         , { sig: [TArr, TArr]
           , description: "Array concatenation."
