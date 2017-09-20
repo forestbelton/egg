@@ -24,6 +24,7 @@ import Egg.Runtime.Operator.Float (float)
 import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
+import Egg.Runtime.Operator.Read (_read)
 import Egg.Runtime.Operator.RParen (rparen)
 import Egg.Runtime.Operator.Set (set)
 import Egg.Runtime.Operator.Semicolon (semi)
@@ -51,6 +52,7 @@ mainOperators =
     , minus
     , plus
     , rbrace
+    , _read
     , rparen
     , semi
     , slash
