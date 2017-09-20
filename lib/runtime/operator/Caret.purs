@@ -22,7 +22,7 @@ caret =
               ABlock f <- pop
               ABlock t <- pop
 
-              execute $ if n == zero then t else f
+              execute $ if n == zero then f else t
           }
         , { sig: [TBlock, TBlock, TNum]
           , description: "Evaluate the first block if the number is nonzero, otherwise the second."
@@ -31,7 +31,7 @@ caret =
               ABlock f <- pop
               ABlock t <- pop
 
-              execute $ if eqApproximate n 0.0 then t else f
+              execute $ if eqApproximate n 0.0 then f else t
           }
         , { sig: [TAny, TAny, TBInt]
           , description: "Push the first value if the integer is nonzero, otherwise the second."
@@ -40,7 +40,7 @@ caret =
               f :: Token <- pop
               t :: Token <- pop
 
-              push $ if n == zero then t else f
+              push $ if n == zero then f else t
           }
         , { sig: [TAny, TAny, TNum]
           , description: "Push the first value if the number is nonzero, otherwise the second."
@@ -49,7 +49,7 @@ caret =
               f :: Token <- pop
               t :: Token <- pop
 
-              push $ if eqApproximate n 0.0 then t else f
+              push $ if eqApproximate n 0.0 then f else t
           }
         ]
     }
