@@ -1,8 +1,9 @@
 module Egg.Runtime.Operator.Slash where
 
+import Data.BigInt (BigInt)
 import Data.String (split, Pattern(..))
 import Data.Traversable (sequence)
-import Prelude (($), bind, discard, map)
+import Prelude (($), bind, discard, map, (/))
 
 import Egg.Runtime.Embed (ABlock(..), lift)
 import Egg.Runtime.Operator.Operator (Operator)
@@ -23,7 +24,21 @@ slash :: Operator
 slash =
     { name: "/"
     , clauses:
-        [ { sig: [TStr, TStr]
+        [ { sig: [TBInt, TBInt]
+          , description: "Integer division."
+          , body: do
+              y :: BigInt <- pop
+              x :: BigInt <- pop
+              push $ x / y
+          }
+        , { sig: [TNum, TNum]
+          , description: "Decimal division."
+          , body: do
+              y :: Number <- pop
+              x :: Number <- pop
+              push $ x / y
+          }
+        , { sig: [TStr, TStr]
           , description: "Split a string by a separator."
           , body: do
               sep :: String <- pop
