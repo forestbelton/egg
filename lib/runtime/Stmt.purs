@@ -16,6 +16,7 @@ data StmtF a
     | Read (String -> a)
     | Set String Token a
     | Get String (Token -> a)
+    | Modify (Array Token -> Array Token) a
     | Error String
 
 type Stmt a = Free StmtF a
@@ -53,6 +54,9 @@ get' v = do
     case lower x of
         Nothing -> error $ "variable " <> v <> " has wrong type"
         Just x  -> pure x
+
+modify :: (Array Token -> Array Token) -> Stmt Unit
+modify f = liftF $ Modify f unit
 
 error :: forall a. String -> Stmt a
 error str = liftF $ Error str

@@ -90,4 +90,8 @@ evaluateStmt (Get v f) = do
     ctx <- get
     let x = maybe (lift 0) id $ lookup v ctx.env
     pure $ f x
+evaluateStmt (Modify f next) = do
+    ctx <- get
+    put $ ctx { stack = f ctx.stack }
+    pure next
 evaluateStmt (Error msg) = unsafeCrashWith msg
