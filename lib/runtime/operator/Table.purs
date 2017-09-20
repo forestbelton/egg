@@ -26,6 +26,7 @@ import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
 import Egg.Runtime.Operator.RParen (rparen)
 import Egg.Runtime.Operator.Set (set)
+import Egg.Runtime.Operator.Semicolon (semi)
 import Egg.Runtime.Operator.Slash (slash)
 
 type OperatorTable = Map String Operator
@@ -50,6 +51,7 @@ mainOperators =
     , plus
     , rbrace
     , rparen
+    , semi
     , slash
     ]
 
