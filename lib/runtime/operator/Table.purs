@@ -28,6 +28,7 @@ import Egg.Runtime.Operator.RParen (rparen)
 import Egg.Runtime.Operator.Set (set)
 import Egg.Runtime.Operator.Semicolon (semi)
 import Egg.Runtime.Operator.Slash (slash)
+import Egg.Runtime.Operator.Zip (zip) as Z
 
 type OperatorTable = Map String Operator
 
@@ -53,6 +54,7 @@ mainOperators =
     , rparen
     , semi
     , slash
+    , Z.zip
     ]
 
 setOperators :: Array Operator
