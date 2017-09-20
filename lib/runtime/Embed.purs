@@ -5,8 +5,6 @@ import Data.Array (catMaybes)
 import Data.BigInt (BigInt, fromInt, toNumber)
 import Data.Int (floor)
 import Data.Maybe (Maybe(..))
-import Data.Tuple (Tuple(..))
-import Partial.Unsafe (unsafeCrashWith)
 import Prelude (($), map, (==), id)
 
 -- Embed a native PureScript value into an egg one (or vice versa)

@@ -1,13 +1,12 @@
 module Egg.Runtime.Operator.Caret where
 
-import Data.List (fromFoldable)
 import Data.Number.Approximate (eqApproximate)
 import Egg.Runtime.Embed (ABlock(..))
 import Egg.Runtime.Operator.Operator (Operator)
 import Egg.Runtime.Stmt
 import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..))
-import Prelude (($), (<>), bind)
+import Prelude (($), bind)
 
 caret :: Operator
 caret =

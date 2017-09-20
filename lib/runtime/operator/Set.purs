@@ -1,6 +1,6 @@
 module Egg.Runtime.Operator.Set where
 
-import Prelude ((<>), (>>=), bind)
+import Prelude ((<>), bind)
 
 import Egg.Runtime.Operator.Operator (Operator)
 import Egg.Runtime.Stmt

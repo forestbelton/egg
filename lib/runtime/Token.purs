@@ -3,6 +3,7 @@ module Egg.Runtime.Token where
 import Prelude (map, show, (<>), ($))
 
 import Data.BigInt (BigInt, toString)
+import Data.Eq (class Eq)
 import Data.Foldable (foldMap)
 import Data.String (joinWith)
 
@@ -14,6 +15,8 @@ data Token
     | BInt BigInt
     | Num Number
     | Block (Array Token)
+
+derive instance eqToken :: Eq Token
 
 displayToken :: Token -> String
 displayToken (Op name)    = name

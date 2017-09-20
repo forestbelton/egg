@@ -1,7 +1,6 @@
 module Egg.Runtime.Stmt where
 
 import Control.Monad.Free (Free, liftF)
-import Data.BigInt (BigInt)
 import Data.Maybe (Maybe(..))
 import Prelude (($), (<>), Unit, unit, id, bind, pure)
 
