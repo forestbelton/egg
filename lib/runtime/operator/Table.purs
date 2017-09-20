@@ -21,6 +21,8 @@ import Egg.Runtime.Operator.Comma (comma)
 import Egg.Runtime.Operator.Display (display)
 import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
+import Egg.Runtime.Operator.LAngle (langle)
+import Egg.Runtime.Operator.LParen (lparen)
 import Egg.Runtime.Operator.Minus (minus)
 import Egg.Runtime.Operator.Plus (plus)
 import Egg.Runtime.Operator.RBrace (rbrace)
@@ -50,6 +52,8 @@ mainOperators =
     , display
     , equals
     , float
+    , langle
+    , lparen
     , minus
     , plus
     , rbrace
