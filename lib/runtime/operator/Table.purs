@@ -9,13 +9,14 @@ import Data.Map (Map, fromFoldable, lookup)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 
-import Egg.Runtime.Stmt
+import Egg.Runtime.Stmt (Stmt, error)
 import Egg.Runtime.Token (Token)
 import Egg.Runtime.Type (Ty(..), typeOf)
 import Egg.Runtime.Operator.Operator (Operator, Clause)
 
 import Egg.Runtime.Operator.Caret (caret)
 import Egg.Runtime.Operator.Comma (comma)
+import Egg.Runtime.Operator.Display (display)
 import Egg.Runtime.Operator.Equals (equals)
 import Egg.Runtime.Operator.Float (float)
 import Egg.Runtime.Operator.Minus (minus)
@@ -37,6 +38,7 @@ mainOperators :: Array Operator
 mainOperators =
     [ caret
     , comma
+    , display
     , equals
     , float
     , minus
