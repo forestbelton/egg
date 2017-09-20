@@ -1,0 +1,32 @@
+{
+  "name": "egg",
+  "description": "A stack-based code golf language",
+  "main": "index.js",
+  "authors": [
+    "Forest Belton <forest@homolo.gy>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/forestbelton/egg",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-bigints": "3.1.0",
+    "purescript-lists": "4.10.0",
+    "purescript-foldable-traversable": "3.6.0",
+    "purescript-strings": "3.3.1",
+    "purescript-arrays": "4.2.0",
+    "purescript-tuples": "4.1.0",
+    "purescript-maps": "3.5.2",
+    "purescript-partial": "1.2.1",
+    "purescript-integers": "3.1.0",
+    "purescript-numbers": "5.0.0",
+    "purescript-free": "4.1.0",
+    "purescript-transformers": "3.4.0",
+    "purescript-enums": "^3.2.1"
+  }
+}

@@ -11,10 +11,19 @@ module.exports = {
         rules: [
             {
                 test: /\.pegjs$/,
+                exclude: /node_modules/,
                 use: [
                     'babel-loader',
                     'pegjs-loader'
                 ]
+            },
+            {
+                test: /\.purs$/,
+                exclude: /node_modules/,
+                loader: 'purs-loader',
+                query: {
+                    src: ['bower_components/purescript-*/src/**/*.purs', 'lib/**/*.purs']
+                }
             },
             {
                 test: /\.js$/,
