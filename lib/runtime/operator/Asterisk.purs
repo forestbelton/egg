@@ -4,7 +4,7 @@ import Data.BigInt (BigInt, toNumber)
 import Data.Enum (enumFromTo)
 import Data.Foldable (sequence_)
 import Data.Int (floor)
-import Prelude (($), (-), bind, discard, map, Unit)
+import Prelude (($), (-), (*), bind, discard, map, Unit)
 
 import Egg.Runtime.Embed (ABlock(..))
 import Egg.Runtime.Stmt
@@ -21,7 +21,21 @@ asterisk :: Operator
 asterisk =
     { name: "*"
     , clauses:
-        [ { sig: [TBlock, TBInt]
+        [ { sig: [TBInt, TBInt]
+          , description: "Integer multiplication."
+          , body: do
+              y :: BigInt <- pop
+              x :: BigInt <- pop
+              push $ x * y
+          }
+        , { sig: [TNum, TNum]
+          , description: "Decimal multiplication."
+          , body: do
+              y :: Number <- pop
+              x :: Number <- pop
+              push $ x * y
+          }
+        , { sig: [TBlock, TBInt]
           , description: "Execute block N times. I is set to the number of previously executed blocks."
           , body: do
               n :: BigInt <- pop
