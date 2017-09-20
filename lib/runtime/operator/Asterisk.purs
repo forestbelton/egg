@@ -51,14 +51,14 @@ asterisk =
               s :: String <- pop
               push $ fold $ replicate (floor n) s
           }
-        , { sig: [TAny, TBInt]
+        , { sig: [TArr, TBInt]
           , description: "Create a new array from N copies of an array."
           , body: do
               n :: Int <- pop
               s :: Token <- pop
               push $ replicate n s
           }
-        , { sig: [TAny, TNum]
+        , { sig: [TArr, TNum]
           , description: "Create a new array from N copies of an array."
           , body: do
               n :: Number <- pop
