@@ -12,7 +12,7 @@ display =
     { name: "d"
     , clauses:
         [ { sig: [TAny]
-          , description: "Parse a decimal value from a string."
+          , description: "Display element on top of stack and print newline."
           , body: do
               x :: Token <- S.pop
               S.display $ displayToken x <> "\n"
