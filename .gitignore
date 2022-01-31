@@ -1,1 +1,5 @@
 node_modules/
+bower_components/
+www/bundle.js
+.psc-ide-port
+output/
